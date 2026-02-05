@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.notice.mapper.AdminNoticeMapper">
+
+    <!-- =========================
+         공지사항 목록 조회 (ADMIN)
+         - 상단 고정(is_pinned) 우선
+         - 숨김 여부 무관
+         - post_type = NOTICE
+    ========================= -->
+    <select id="selectNoticeList"
+            resultType="com.project.app.notice.dto.NoticeDto">
+
+        SELECT
+            cp.post_id,
+            cp.post_type,
+            cp.title,
+            cp.content,
+            cp.writer_id,
+            cp.writer_type,
+            cp.branch_id,
+            cp.views,
+            cp.is_visible,
+            cp.is_pinned,
+            cp.display_end,
+            cp.created_at,
+            cp.updated_at,
+
+            -- 지점명 표시용
+            b.brch_nm AS branch_name
+
+        FROM COMMUNITY_POST cp
+        LEFT JOIN BRANCH b
+               ON cp.branch_id = b.brch_id
+
+        WHERE cp.post_type = 'NOTICE'
+        ORDER BY
+            cp.is_pinned DESC,
+            cp.created_at DESC
+
+    </select>
+
+    <!-- =========================
+         공지사항 상세 조회 (ADMIN)
+    ========================= -->
+    <select id="selectNoticeDetail"
+            parameterType="long"
+            resultType="com.project.app.notice.dto.NoticeDto">
+
+        SELECT
+            cp.post_id,
+            cp.post_type,
+            cp.title,
+            cp.content,
+            cp.writer_id,
+            cp.writer_type,
+            cp.branch_id,
+            cp.views,
+            cp.is_visible,
+            cp.is_pinned,
+            cp.display_end,
+            cp.created_at,
+            cp.updated_at,
+
+            -- 지점명 표시용
+            b.brch_nm AS branch_name
+
+        FROM COMMUNITY_POST cp
+        LEFT JOIN BRANCH b
+               ON cp.branch_id = b.brch_id
+
+        WHERE cp.post_id = #{postId}
+          AND cp.post_type = 'NOTICE'
+
+    </select>
+
+    <!-- =========================
+         공지사항 등록 (ADMIN)
+         - is_pinned 기본값 false
+         - display_end : NULL이면 상시
+    ========================= -->
+    <insert id="insertNotice"
+            parameterType="com.project.app.notice.dto.NoticeDto"
+            useGeneratedKeys="true"
+            keyProperty="postId">
+
+        INSERT INTO COMMUNITY_POST
+        (
+            post_type,
+            title,
+            content,
+            writer_id,
+            writer_type,
+            branch_id,
+            views,
+            is_visible,
+            is_pinned,
+            display_end,
+            created_at,
+            updated_at
+        )
+        VALUES
+        (
+            #{postType},
+            #{title},
+            #{content},
+            #{writerId},
+            #{writerType},
+            #{branchId},
+            #{views},
+            #{isVisible},
+            0,
+            #{displayEnd},
+            NOW(),
+            NOW()
+        )
+
+    </insert>
+
+    <!-- =========================
+         공지사항 수정 (ADMIN)
+    ========================= -->
+    <update id="updateNotice"
+        parameterType="com.project.app.notice.dto.NoticeDto">
+    UPDATE COMMUNITY_POST
+    SET
+        title = #{title},
+        content = #{content},
+        branch_id = #{branchId},
+        display_end = #{displayEnd},
+        updated_at = NOW()
+    WHERE post_id = #{postId}
+      AND post_type = 'NOTICE'
+</update>
+
+
+    <!-- =========================
+         공지사항 숨김 / 보이기 (ADMIN)
+    ========================= -->
+    <update id="updateVisible">
+
+        UPDATE COMMUNITY_POST
+        SET
+            is_visible = #{visible},
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+          AND post_type = 'NOTICE'
+
+    </update>
+
+    <!-- =========================
+         공지사항 상단 고정 ON / OFF
+    ========================= -->
+    <update id="updatePinned">
+
+        UPDATE COMMUNITY_POST
+        SET
+            is_pinned = #{pinned},
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+          AND post_type = 'NOTICE'
+
+    </update>
+
+    <!-- =========================
+         공지사항 삭제 (ADMIN)
+    ========================= -->
+    <delete id="deleteNotice">
+
+        DELETE FROM COMMUNITY_POST
+        WHERE post_id = #{postId}
+          AND post_type = 'NOTICE'
+
+    </delete>
+
+</mapper>

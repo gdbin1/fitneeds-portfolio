@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.community.mapper.CommunityRecruitJoinMapper">
+
+  <!-- =========================
+       참여 신청 중복 체크
+       post_id + user_id 기준
+  ========================= -->
+  <select id="countByPostIdAndUserId" resultType="int">
+    SELECT COUNT(*)
+    FROM COMMUNITY_RECRUIT_JOIN
+    WHERE post_id = #{postId}
+      AND user_id = #{userId}
+  </select>
+
+  <!-- =========================
+       모집 참여 인원 수 조회
+  ========================= -->
+  <select id="countByPostId" resultType="int">
+    SELECT COUNT(*)
+    FROM COMMUNITY_RECRUIT_JOIN
+    WHERE post_id = #{postId}
+  </select>
+
+  <!-- =========================
+       참여 신청 INSERT
+  ========================= -->
+  <insert id="insertRecruitJoin">
+    INSERT INTO COMMUNITY_RECRUIT_JOIN (
+      post_id,
+      user_id,
+      join_type
+    ) VALUES (
+      #{postId},
+      #{userId},
+      'JOIN'
+    )
+  </insert>
+
+  <!-- =========================
+       참여 취소 DELETE
+  ========================= -->
+  <delete id="deleteRecruitJoin">
+    DELETE
+    FROM COMMUNITY_RECRUIT_JOIN
+    WHERE post_id = #{postId}
+      AND user_id = #{userId}
+  </delete>
+
+  <!-- =========================
+       참여 신청자 목록 조회
+       (작성자용)
+       🔥 user_id → user_name
+  ========================= -->
+  <select id="selectJoinUsersByPostId" resultType="string">
+    SELECT COALESCE(u.user_name, '탈퇴한 회원')
+    FROM COMMUNITY_RECRUIT_JOIN j
+    LEFT JOIN USERS u
+           ON u.user_id = j.user_id
+    WHERE j.post_id = #{postId}
+    ORDER BY j.join_id ASC
+  </select>
+
+  <!-- =========================
+       🔥 내가 참여한 모집 글 목록 조회
+       (USER 전용)
+       ※ 기존 로직 유지
+  ========================= -->
+  <select id="selectMyJoinedRecruitPosts"
+          parameterType="string"
+          resultType="com.project.app.community.dto.CommunityPostDto">
+
+    SELECT
+      p.post_id            AS postId,
+      p.title              AS title,
+      p.category           AS category,
+      p.writer_id          AS writerId,
+      p.created_at         AS createdAt,
+      p.recruit_end_date   AS recruitEndDate,
+      p.recruit_max        AS recruitMax,
+      p.sport_type         AS sportType,
+
+      /* 🔥 현재 참여 인원 수 */
+      COUNT(crj.join_id)   AS recruitCount
+
+    FROM COMMUNITY_RECRUIT_JOIN j
+    JOIN COMMUNITY_POST p
+      ON j.post_id = p.post_id
+    LEFT JOIN COMMUNITY_RECRUIT_JOIN crj
+      ON crj.post_id = p.post_id
+
+    WHERE j.user_id = #{userId}
+      AND p.category = '모집'
+      AND p.post_visible = 1
+
+    GROUP BY p.post_id
+    ORDER BY j.join_id DESC
+  </select>
+
+</mapper>

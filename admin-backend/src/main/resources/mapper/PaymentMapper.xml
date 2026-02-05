@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.app.payment.mapper.PaymentMapper">
+
+    <resultMap id="PaymentResultMap" type="com.project.app.payment.domain.Payment">
+        <id property="payId" column="pay_id" />
+        <result property="orderNo" column="order_no" />
+        <result property="brchId" column="brch_id" />
+        <result property="userId" column="user_id" />
+        <result property="payTypeCd" column="pay_type_cd" />
+        <result property="targetId" column="target_id" />
+        <result property="payAmt" column="pay_amt" />
+        <result property="payMethod" column="pay_method" />
+        <result property="sttsCd" column="stts_cd" />
+        <result property="regDt" column="reg_dt" />
+        <result property="pgOrderNo" column="pg_order_no" />
+    </resultMap>
+
+    <select id="findAll" resultMap="PaymentResultMap">
+        SELECT * FROM payment ORDER BY reg_dt DESC
+    </select>
+
+    <select id="findById" resultMap="PaymentResultMap">
+        SELECT * FROM payment WHERE pay_id = #{payId}
+    </select>
+
+    <insert id="insert" parameterType="com.project.app.payment.domain.Payment" useGeneratedKeys="true" keyProperty="payId">
+        INSERT INTO payment (
+            order_no,
+            brch_id,
+            user_id,
+            pay_type_cd,
+            target_id,
+            pay_amt,
+            pay_method,
+            stts_cd,
+            reg_dt,
+            pg_order_no
+        ) VALUES (
+            #{orderNo},
+            #{brchId},
+            #{userId},
+            #{payTypeCd},
+            #{targetId},
+            #{payAmt},
+            #{payMethod},
+            #{sttsCd},
+            NOW(),
+            #{pgOrderNo}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.project.app.payment.domain.Payment">
+        UPDATE payment
+        SET
+            order_no = #{orderNo},
+            brch_id = #{brchId},
+            user_id = #{userId},
+            pay_type_cd = #{payTypeCd},
+            target_id = #{targetId},
+            pay_amt = #{payAmt},
+            pay_method = #{payMethod},
+            stts_cd = #{sttsCd},
+            pg_order_no = #{pgOrderNo}
+        WHERE pay_id = #{payId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM payment WHERE pay_id = #{payId}
+    </delete>
+
+</mapper>

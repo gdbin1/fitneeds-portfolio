@@ -1,0 +1,45 @@
+/* Layout component specific styles */
+
+/* 스크롤바 등장/사라짐 시 레이아웃 시프트 방지 (거래 메뉴 전환 시 네비 흔들림 해소) */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* .layout-wrapper {
+  display: block;
+  min-height: 100vh;
+  overflow-x: hidden;
+} */
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* Ensure Navigation is always on top and consistent across all pages */
+.layout-wrapper > nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.layout-main {
+  padding-top: 80px; /* Add padding to prevent content from being hidden under fixed header */
+  overflow-x: hidden;
+   flex: 1;  
+}
+
+/* Home page doesn't need padding-top as header is transparent initially */
+.layout-main-home {
+  padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+}
+

@@ -1,0 +1,164 @@
+/* ===============================
+   QnA 상세 / 답변 공용 모달
+   =============================== */
+
+/* 배경 (상세 / 답변 공용) */
+.qna-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+/* 모달 박스 */
+.qna-modal {
+  width: 640px;
+  max-width: 90%;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 22px 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ===============================
+   헤더
+   =============================== */
+
+.qna-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 12px;
+}
+
+.qna-modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ===============================
+   메타 정보
+   =============================== */
+
+.qna-modal-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6c757d;
+  margin: 14px 0 22px;
+}
+
+/* ===============================
+   본문
+   =============================== */
+
+.qna-modal h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.qna-modal p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #212529;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   입력 영역
+   =============================== */
+
+.qna-input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.qna-modal textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  resize: none;
+  margin-bottom: 12px;
+}
+
+.qna-modal textarea:focus {
+  outline: none;
+  border-color: #ffc107;
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.25);
+}
+
+/* ===============================
+   하단 버튼 영역
+   =============================== */
+
+.qna-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #dee2e6;
+  padding-top: 14px;
+  margin-top: 10px;
+}
+
+/* 좌 / 우 버튼 그룹 */
+.qna-footer-left,
+.qna-footer-right {
+  display: flex;
+  gap: 8px;
+}
+
+/* ===============================
+   버튼 스타일
+   =============================== */
+
+.btn-edit,
+.btn-save,
+.btn-answer {
+  background: #ffc107;
+  color: #212529;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+
+}
+
+.btn-edit:hover,
+.btn-save:hover,
+.btn-answer:hover {
+  background: #e0a800;
+}
+
+
+.btn-delete {
+  background: #dc3545;
+  color: #ffffff;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+.qna-textarea::placeholder {
+  color: #adb5bd;
+  font-size: 13px;
+}

@@ -1,0 +1,553 @@
+/* MyPass Page Styles */
+
+.mypass-container {
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  background-color: #f8f9fa;
+}
+
+/* 메인 콘텐츠 영역 */
+.mypass-main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.mypass-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mypass-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mypass-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+}
+
+/* 이용권 카드 */
+.mypass-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.mypass-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mypass-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #ffc107;
+}
+
+.mypass-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.mypass-card-usage {
+  margin-bottom: 1rem;
+}
+
+.mypass-card-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #212529;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* 진행률 바 */
+.mypass-progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.mypass-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffc107 0%, #ffb300 100%);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.mypass-card-expiry {
+  font-size: 0.9375rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mypass-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.mypass-btn {
+  padding: 0.625rem 1rem;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  color: #212529;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  flex: 1;
+  text-align: center;
+}
+
+.mypass-btn:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.mypass-btn-transfer {
+  flex: 1;
+}
+
+/* 새 이용권 구매 카드 */
+.mypass-card-add {
+  border: 2px dashed #ccc;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mypass-card-add:hover {
+  border-color: #ffc107;
+  background-color: #fffbf0;
+}
+
+.mypass-card-add-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mypass-card-add-icon {
+  font-size: 3rem;
+  color: #999;
+  line-height: 1;
+}
+
+.mypass-card-add-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.mypass-card-add:hover .mypass-card-add-icon,
+.mypass-card-add:hover .mypass-card-add-text {
+  color: #ffc107;
+}
+
+/* 빈 상태 */
+.mypass-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #999;
+  font-size: 1.125rem;
+}
+
+.mypass-loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.mypass-error-message {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+/* 모달 */
+.mypass-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.mypass-modal {
+  background-color: #fff;
+  border-radius: 8px;
+  max-width: 1000px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.mypass-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.mypass-modal-close:hover {
+  color: #212529;
+}
+
+.mypass-modal-content {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.mypass-modal-left {
+  flex: 1;
+  border-right: 1px solid #e0e0e0;
+  padding-right: 2rem;
+}
+
+.mypass-modal-left h3,
+.mypass-modal-right h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1.5rem;
+}
+
+.mypass-product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mypass-product-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  background-color: #fff;
+}
+
+.mypass-product-card:hover {
+  border-color: #ffc107;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+}
+
+.mypass-product-card.selected {
+  border: 3px solid #0066ff;
+  background-color: #f0f7ff;
+}
+
+.mypass-product-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.mypass-product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.mypass-product-desc {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.mypass-badge-best {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* 모달 오른쪽 (결제 정보) */
+.mypass-modal-right {
+  flex: 1;
+  padding-left: 2rem;
+}
+
+.mypass-order-info {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.mypass-order-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: center;
+}
+
+.mypass-order-row:last-child {
+  border-bottom: none;
+}
+
+.mypass-order-row span,
+.mypass-order-row strong {
+  font-size: 0.9375rem;
+}
+
+.mypass-payment-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.mypass-payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.mypass-payment-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: #212529;
+}
+
+.mypass-payment-option input[type="radio"] {
+  cursor: pointer;
+  accent-color: #ffc107;
+}
+
+/* 최종 금액 */
+.mypass-total-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff3e0;
+  border-top: 2px solid #ffc107;
+  border-bottom: 2px solid #ffc107;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+}
+
+.mypass-total-amount span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.mypass-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+/* 약관 동의 */
+.mypass-agreement {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mypass-agreement-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #212529;
+}
+
+.mypass-agreement-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  margin-top: 0.25rem;
+  accent-color: #ffc107;
+}
+
+.mypass-agreement-details {
+  list-style: none;
+  padding: 0.75rem 0 0 1.5rem;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #6c757d;
+}
+
+.mypass-agreement-details li {
+  padding: 0.25rem 0;
+}
+
+.mypass-agreement-details li:before {
+  content: "- ";
+}
+
+/* 구매 버튼 */
+.mypass-btn-purchase {
+  width: 100%;
+  padding: 1rem;
+  background-color: #212529;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mypass-btn-purchase:hover:not(:disabled) {
+  background-color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mypass-btn-purchase:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mypass-no-selection {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #999;
+  font-size: 1rem;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .mypass-container {
+    flex-direction: column;
+  }
+
+  .mypass-main {
+    padding: 1.5rem;
+  }
+
+  .mypass-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .mypass-modal-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .mypass-modal-left,
+  .mypass-modal-right {
+    border-right: none;
+    border-bottom: none;
+    padding: 0;
+  }
+
+  .mypass-modal-left {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1.5rem;
+  }
+
+  .mypass-section {
+    padding: 1.5rem;
+  }
+
+  .mypass-title {
+    font-size: 1.5rem;
+  }
+
+  .mypass-card {
+    padding: 1rem;
+  }
+
+  .mypass-card-number {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mypass-main {
+    padding: 1rem;
+  }
+
+  .mypass-section {
+    padding: 1rem;
+  }
+
+  .mypass-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mypass-cards {
+    gap: 1rem;
+  }
+
+  .mypass-card {
+    padding: 0.75rem;
+  }
+
+  .mypass-card-title {
+    font-size: 1rem;
+  }
+
+  .mypass-card-number {
+    font-size: 1.25rem;
+    padding: 0.75rem 0;
+  }
+}

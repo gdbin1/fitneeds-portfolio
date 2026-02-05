@@ -1,0 +1,158 @@
+/* TypeSelect.css */
+
+:root {
+    --primary-color: #FFC107;
+    --primary-hover: #e0a800;
+    --text-dark: #222;
+    --text-gray: #666;
+    --bg-light: #f4f4f4;
+    --white: #ffffff;
+    --border-soft: #e5e5e5;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.type-select-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
+.type-section {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    border: 1px solid var(--border-soft);
+    overflow: hidden;
+}
+
+/* ✅ 더보기랑 안 겹치게 타이틀 오른쪽 여백 확보 */
+.section-title {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-right: 90px; /* NEW: 더보기 자리 확보 */
+}
+
+.section-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 24px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.info-text {
+    font-size: 1.05em;
+    color: var(--text-gray);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.sport-selection-area,
+.branch-selection-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+/* ✅ 로딩/에러/빈 상태 메시지도 톤 맞추기 */
+.branch-selection-area > div,
+.type-section > div {
+    font-size: 0.95em;
+    color: var(--text-gray);
+    padding: 6px 2px;
+}
+
+.sport-link-item,
+.branch-link-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+
+    white-space: nowrap;
+    word-break: keep-all;
+
+    min-width: fit-content;
+    background-color: var(--white);
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    font-weight: 700; /* 살짝 강조 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    color: var(--text-dark);
+    text-decoration: none;
+}
+
+/* ✅ hover 시 글자색 고정 + 대비 확보 */
+.sport-link-item:hover,
+.branch-link-item:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #111; /* NEW: 가독성 */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(255, 193, 7, 0.28);
+}
+
+/* ✅ 클릭 순간 과한 점프 방지 */
+.sport-link-item:active,
+.branch-link-item:active {
+    transform: translateY(-1px);
+}
+
+/* ✅ 키보드 포커스 (접근성 + 퀄리티) */
+.sport-link-item:focus-visible,
+.branch-link-item:focus-visible {
+    outline: 3px solid rgba(255, 193, 7, 0.45);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+/* 더보기 */
+.info-text.more {
+    position: absolute;
+    top: 45px;
+    right: 40px;
+    font-size: 0.9em;
+    font-weight: 800;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 2px;
+    user-select: none;
+}
+
+.info-text.more:hover {
+    color: var(--text-dark);
+    border-bottom-color: var(--primary-hover);
+}
+
+@media (max-width: 600px) {
+    .type-section {
+        padding: 25px;
+    }
+    .section-title {
+        font-size: 1.4em;
+        padding-right: 0; /* 모바일에선 불필요 */
+    }
+    .info-text.more {
+        position: static;
+        display: block;
+        margin-top: 20px;
+        text-align: right;
+    }
+}

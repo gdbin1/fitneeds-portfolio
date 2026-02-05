@@ -1,0 +1,181 @@
+/* --- 기존 변수 및 컨테이너 유지 --- */
+:root {
+    --primary-color: #FFC107;
+    --primary-hover: #e0a800;
+    --text-dark: #222;
+    --text-gray: #666;
+    --border-soft: #ececec;
+    --white: #ffffff;
+    --shadow-deep: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.program-detail-container {
+    background-color: var(--white);
+    padding: 60px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-deep);
+    max-width: 1000px; /* 좌우 배치를 위해 폭을 살짝 넓힘 */
+    margin: 60px auto;
+    font-family: 'Pretendard', sans-serif;
+}
+
+/* --- 상단 레이아웃 (강사정보 | 프로그램정보) --- */
+.detail-top-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+/* 1. 강사 정보 섹션 (왼쪽) */
+.instructor-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fcfcfc;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border-soft);
+    text-align: center;
+}
+
+.instructor-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid var(--white);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.instructor-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #007bff; /* 기존 블루톤 유지 */
+    margin-bottom: 10px;
+}
+
+.instructor-intro {
+    font-size: 0.95rem;
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    word-break: keep-all;
+}
+
+/* 자격증 리스트 스타일 */
+.certificate-container {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 20px;
+    text-align: left;
+}
+
+.certificate-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.certificate-item {
+    background-color: var(--white);
+    border: 1px solid var(--border-soft);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
+.no-certificate {
+    font-size: 0.85rem;
+    color: #bbb;
+    text-align: center;
+}
+
+/* 2. 프로그램 정보 섹션 (오른쪽) */
+.program-info-section {
+    flex: 1.5;
+}
+
+.program-title {
+    font-weight: 800;
+    font-size: 2.3rem; /* 기존 스타일 유지 */
+    margin-bottom: 25px;
+    color: var(--text-dark);
+    line-height: 1.2;
+}
+
+.branch-name,
+.program-duration,
+.program-time {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    margin-bottom: 15px;
+}
+
+/* 기존 노란색 강조점 효과 유지 */
+.branch-name::before,
+.program-duration::before,
+.program-time::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.program-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    white-space: pre-wrap;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border-soft);
+}
+
+/* --- 예약하기 버튼 (기존 스타일 유지) --- */
+.reserve-button {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    padding: 20px 0;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 16px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    cursor: pointer;
+    margin: 40px auto 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
+}
+
+.reserve-button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(255, 193, 7, 0.4);
+}
+
+/* 반응형 모바일 */
+@media (max-width: 850px) {
+    .detail-top-wrapper {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .instructor-section {
+        width: 100%;
+    }
+    .program-title {
+        font-size: 1.8rem;
+    }
+}

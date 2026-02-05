@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.branch.mapper.BranchInfoMapper">
+
+    <resultMap id="BranchInfoResultMap" type="com.project.app.branch.domain.BranchInfo">
+        <id property="brInfoId" column="br_info_id" />
+        <result property="brchId" column="brch_id" />
+        <result property="openTime" column="open_time" />
+        <result property="closeTime" column="close_time" />
+        <result property="breakStartTime" column="break_start_time" />
+        <result property="breakEndTime" column="break_end_time" />
+        <result property="holidayInfo" column="holiday_info" />
+        <result property="policyInfo" column="policy_info" />
+        <result property="creatAt" column="creat_at" />
+        <result property="updAt" column="upd_at" />
+    </resultMap>
+
+    <!-- =========================
+         지점 정보 전체 조회
+    ========================= -->
+    <select id="findAll"
+            resultMap="BranchInfoResultMap">
+        SELECT
+            br_info_id,
+            brch_id,
+            open_time,
+            close_time,
+            break_start_time,
+            break_end_time,
+            holiday_info,
+            policy_info,
+            DATE_FORMAT(creat_at, '%Y-%m-%d %H:%i:%s') AS creat_at,
+            DATE_FORMAT(upd_at, '%Y-%m-%d %H:%i:%s') AS upd_at
+        FROM BRANCH_INFO
+        ORDER BY creat_at DESC
+    </select>
+
+    <!-- =========================
+         지점 정보 ID로 조회
+    ========================= -->
+    <select id="findById"
+            parameterType="java.lang.Long"
+            resultMap="BranchInfoResultMap">
+        SELECT
+            br_info_id,
+            brch_id,
+            open_time,
+            close_time,
+            break_start_time,
+            break_end_time,
+            holiday_info,
+            policy_info,
+            DATE_FORMAT(creat_at, '%Y-%m-%d %H:%i:%s') AS creat_at,
+            DATE_FORMAT(upd_at, '%Y-%m-%d %H:%i:%s') AS upd_at
+        FROM BRANCH_INFO
+        WHERE br_info_id = #{brInfoId}
+    </select>
+
+    <!-- =========================
+         지점 정보 생성
+    ========================= -->
+    <insert id="insert"
+            parameterType="com.project.app.branch.domain.BranchInfo"
+            useGeneratedKeys="true"
+            keyProperty="brInfoId">
+        INSERT INTO BRANCH_INFO (
+            brch_id,
+            open_time,
+            close_time,
+            break_start_time,
+            break_end_time,
+            holiday_info,
+            policy_info,
+            creat_at,
+            upd_at
+        ) VALUES (
+            #{brchId, jdbcType=BIGINT},
+            #{openTime, jdbcType=VARCHAR},
+            #{closeTime, jdbcType=VARCHAR},
+            #{breakStartTime, jdbcType=VARCHAR},
+            #{breakEndTime, jdbcType=VARCHAR},
+            #{holidayInfo, jdbcType=VARCHAR},
+            #{policyInfo, jdbcType=VARCHAR},
+            #{creatAt, jdbcType=VARCHAR},
+            #{updAt, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- =========================
+         지점 정보 수정
+    ========================= -->
+    <update id="update"
+            parameterType="com.project.app.branch.domain.BranchInfo">
+        UPDATE BRANCH_INFO
+        SET
+            brch_id = #{brchId, jdbcType=BIGINT},
+            open_time = #{openTime, jdbcType=VARCHAR},
+            close_time = #{closeTime, jdbcType=VARCHAR},
+            break_start_time = #{breakStartTime, jdbcType=VARCHAR},
+            break_end_time = #{breakEndTime, jdbcType=VARCHAR},
+            holiday_info = #{holidayInfo, jdbcType=VARCHAR},
+            policy_info = #{policyInfo, jdbcType=VARCHAR},
+            upd_at = #{updAt, jdbcType=VARCHAR}
+        WHERE br_info_id = #{brInfoId, jdbcType=BIGINT}
+    </update>
+
+    <!-- =========================
+         지점 정보 삭제
+    ========================= -->
+    <delete id="delete"
+            parameterType="long">
+        DELETE FROM BRANCH_INFO
+        WHERE br_info_id = #{brInfoId}
+    </delete>
+
+    <!-- =========================
+         지점 ID로 지점 정보 삭제
+    ========================= -->
+    <delete id="deleteByBrchId"
+            parameterType="long">
+        DELETE FROM BRANCH_INFO
+        WHERE brch_id = #{brchId}
+    </delete>
+
+</mapper>
+

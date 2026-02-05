@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.branch.mapper.BranchMapper">
+
+    <resultMap id="BranchResultMap" type="com.project.app.branch.domain.Branch">
+        <id property="brchId" column="brch_id" />
+        <result property="brchNm" column="brch_nm" />
+        <result property="addr" column="addr" />
+        <result property="phone" column="phone" />
+        <result property="operYn" column="oper_yn" />
+        <result property="regDt" column="reg_dt" />
+        <result property="updDt" column="upd_dt" />
+    </resultMap>
+
+    <!-- =========================
+         지점 전체 조회
+    ========================= -->
+    <select id="findAll"
+            resultMap="BranchResultMap">
+        SELECT
+            brch_id,
+            brch_nm,
+            addr,
+            NULL AS phone,
+            oper_yn,
+            DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS reg_dt,
+            DATE_FORMAT(upd_dt, '%Y-%m-%d %H:%i:%s') AS upd_dt
+        FROM BRANCH
+        ORDER BY brch_id ASC
+    </select>
+
+    <!-- =========================
+         지점 ID로 조회
+    ========================= -->
+    <select id="findById"
+            parameterType="java.lang.Long"
+            resultMap="BranchResultMap">
+        SELECT
+            brch_id,
+            brch_nm,
+            addr,
+            NULL AS phone,
+            oper_yn,
+            DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS reg_dt,
+            DATE_FORMAT(upd_dt, '%Y-%m-%d %H:%i:%s') AS upd_dt
+        FROM BRANCH
+        WHERE brch_id = #{brchId}
+    </select>
+
+    <!-- =========================
+         지점 생성
+    ========================= -->
+    <insert id="insert"
+            parameterType="com.project.app.branch.domain.Branch">
+        INSERT INTO BRANCH (
+            brch_id,
+            brch_nm,
+            addr,
+            oper_yn,
+            reg_dt,
+            upd_dt
+        ) VALUES (
+            #{brchId},
+            #{brchNm},
+            #{addr},
+            #{operYn},
+            #{regDt, jdbcType=TIMESTAMP},
+            #{updDt, jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!-- =========================
+         지점 수정
+    ========================= -->
+    <update id="update"
+            parameterType="com.project.app.branch.domain.Branch">
+        UPDATE BRANCH
+        SET
+            brch_nm = #{brchNm},
+            addr = #{addr},
+            oper_yn = #{operYn},
+            upd_dt = #{updDt, jdbcType=TIMESTAMP}
+        WHERE brch_id = #{brchId}
+    </update>
+
+    <!-- =========================
+         지점 삭제
+    ========================= -->
+    <delete id="delete"
+            parameterType="long">
+        DELETE FROM BRANCH
+        WHERE brch_id = #{brchId}
+    </delete>
+
+    <!-- =========================
+         지점 ID로 BranchInfo 삭제
+    ========================= -->
+    <delete id="deleteBranchInfoByBrchId"
+            parameterType="long">
+        DELETE FROM branch_info
+        WHERE brch_id = #{brchId}
+    </delete>
+
+    <!-- =========================
+         지점 ID로 Admin Users 삭제 (String 타입)
+    ========================= -->
+    <delete id="deleteAdminUsersByBrchId"
+            parameterType="string">
+        DELETE FROM users_admin
+        WHERE brch_id = #{brchId}
+    </delete>
+
+    <!-- =========================
+         지점 ID로 Admin Users 삭제 (Long 타입)
+    ========================= -->
+    <delete id="deleteAdminUsersByBrchIdLong"
+            parameterType="long">
+        DELETE FROM users_admin
+        WHERE brch_id = #{brchId}
+    </delete>
+
+    <!-- =========================
+         연도별 최대 지점 ID 조회
+    ========================= -->
+    <select id="findMaxBrchIdByYear"
+            parameterType="string"
+            resultType="string">
+        SELECT MAX(brch_id)
+        FROM BRANCH
+        WHERE brch_id LIKE CONCAT('BR-', #{year}, '-%')
+    </select>
+
+    <!-- =========================
+         전체 최대 지점 ID 조회 (숫자 형식: 001, 002, ...)
+    ========================= -->
+    <select id="findMaxBrchId"
+            resultType="java.lang.Long">
+        SELECT MAX(brch_id)
+        FROM BRANCH
+    </select>
+
+</mapper>
+

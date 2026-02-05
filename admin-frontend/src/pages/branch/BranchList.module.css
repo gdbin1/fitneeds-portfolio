@@ -1,0 +1,202 @@
+.loader {
+  text-align: center;
+  padding: 40px;
+}
+
+.loaderSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ddd;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.headerTitle {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.headerSubtitle {
+  color: #666;
+  margin-top: 4px;
+}
+
+.filterContainer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filterButtonGroup {
+  display: flex;
+  gap: 4px;
+  background: #f2f2f2;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.filterButton {
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.filterButton:hover {
+  background: #e0e0e0;
+}
+
+.filterButtonActive {
+  background: #3498db;
+  color: white;
+}
+
+.searchInput {
+  max-width: 300px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background: #f2f2f2;
+}
+
+.tableHeaderCell {
+  cursor: pointer;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.tableHeaderCell:hover {
+  background: #e8e8e8;
+}
+
+.tableBodyRow {
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.2s;
+}
+
+.tableBodyRow:hover {
+  background: #f9f9f9;
+}
+
+.tableCell {
+  padding: 12px;
+  text-align: left;
+}
+
+.tableCellCenter {
+  text-align: center;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.statusOperating {
+  background: #d4edda;
+  color: #155724;
+}
+
+.statusClosed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.statusClosedTemp {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.actionButtonGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.actionButton:hover {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.actionButtonDelete {
+  padding: 6px 12px;
+  border: 1px solid #e74c3c;
+  background: #fff;
+  color: #e74c3c;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.actionButtonDelete:hover {
+  background: #f8d7da;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+}
+
+.emptyStateIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyStateTitle {
+  font-weight: 600;
+}
+
+.emptyStateDescription {
+  margin-top: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

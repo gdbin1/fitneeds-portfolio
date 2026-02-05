@@ -1,0 +1,89 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.7'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.project.app'
+version = '0.0.1-SNAPSHOT'
+description = 'project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	// lombok 의존성
+	compileOnly 'org.projectlombok:lombok'	
+	annotationProcessor 'org.projectlombok:lombok'
+	
+	// Oracle 의존성
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc17'
+	implementation 'com.oracle.database.jdbc:ojdbc17'
+	// Oracle 보안 의존성 - 버전 일치시키기
+	implementation 'com.oracle.database.security:oraclepki'
+	implementation 'com.oracle.database.security:osdt_cert:19.8.0.0'
+    implementation 'com.oracle.database.security:osdt_core:19.8.0.0'
+	implementation 'com.oracle.database.jdbc:ucp'
+	implementation 'com.oracle.database.xml:xdb'
+	
+	// mariadb 의존성
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	
+	// H2 - in-memory DB for tests (integration TDD)
+	testImplementation 'com.h2database:h2'
+
+	// TEST 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
+	testImplementation 'org.springframework.batch:spring-batch-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// JJWT 라이브러리 최신 버전
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // JSON 처리용
+    
+    // P6Spy 의존성
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+    // 또는 일반 p6spy
+    // implementation 'p6spy:p6spy:3.9.1'
+    
+    // AOP 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    
+    // xml data
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+    
+	// swagger    
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << '-parameters'
+}

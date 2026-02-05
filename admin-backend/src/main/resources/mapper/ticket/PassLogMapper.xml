@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.ticket.mapper.PassLogMapper">
+
+    <select id="selectPassLogByPassId"
+            parameterType="long"
+            resultType="com.project.app.ticket.dto.PassLogResponse">
+        SELECT pl.pass_log_id AS logId,
+               pl.chg_type_cd AS chgTypeCd,
+               pl.chg_cnt     AS chgCnt,
+               pl.chg_rsn     AS chgRsn,
+               ua.user_name   AS processedByName,
+               pl.reg_dt      AS regDt
+        FROM PASS_LOG pl
+                 LEFT JOIN USERS_ADMIN ua ON pl.pocs_user_id = ua.user_id
+        WHERE pl.user_pass_id = #{passId}
+        ORDER BY pl.reg_dt DESC
+    </select>
+
+    <!-- resultMap and CRUD from root PassLogMapper -->
+    <resultMap id="PassLogResultMap" type="com.project.app.ticket.domain.PassLog">
+        <id property="passLogId" column="pass_log_id" />
+        <result property="passId" column="pass_id" />
+        <result property="brchId" column="brch_id" />
+        <result property="chgTypeCd" column="chg_type_cd" javaType="com.project.app.ticket.entity.PassLogChgTypeCd" jdbcType="VARCHAR" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+        <result property="chgCnt" column="chg_cnt" />
+        <result property="chgRsn" column="chg_rsn" />
+        <result property="userId" column="user_id" />
+        <result property="regDt" column="reg_dt" />
+    </resultMap>
+
+    <select id="findAll" resultMap="PassLogResultMap">
+        SELECT * FROM pass_log ORDER BY reg_dt DESC
+    </select>
+
+    <select id="findById" resultMap="PassLogResultMap">
+        SELECT * FROM pass_log WHERE pass_log_id = #{passLogId}
+    </select>
+
+    <insert id="insert" parameterType="com.project.app.ticket.domain.PassLog" useGeneratedKeys="true" keyProperty="passLogId">
+        INSERT INTO pass_log (
+            pass_id,
+            brch_id,
+            chg_type_cd,
+            chg_cnt,
+            chg_rsn,
+            user_id,
+            reg_dt
+        ) VALUES (
+            #{passId},
+            #{brchId},
+            #{chgTypeCd, jdbcType=VARCHAR, javaType=com.project.app.ticket.entity.PassLogChgTypeCd, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            #{chgCnt},
+            #{chgRsn},
+            #{userId},
+            NOW()
+        )
+    </insert>
+
+    <update id="update" parameterType="com.project.app.ticket.domain.PassLog">
+        UPDATE pass_log
+        SET
+            pass_id = #{passId},
+            brch_id = #{brchId},
+            chg_type_cd = #{chgTypeCd, jdbcType=VARCHAR, javaType=com.project.app.ticket.entity.PassLogChgTypeCd, typeHandler=org.apache.ibatis.type.EnumTypeHandler},
+            chg_cnt = #{chgCnt},
+            chg_rsn = #{chgRsn},
+            user_id = #{userId}
+        WHERE pass_log_id = #{passLogId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM pass_log WHERE pass_log_id = #{passLogId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.myclass.mapper.MyClassMapper">
+
+    <resultMap id="ScheduleRowMap" type="com.project.app.myclass.dto.row.MyClassScheduleRow">
+        <id property="schdId" column="schd_id"/>
+        <result property="progId" column="prog_id"/>
+        <result property="progNm" column="prog_nm"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="teacherName" column="teacher_name"/>
+        <result property="brchId" column="brch_id"/>
+        <result property="brchNm" column="brch_nm"/>
+        <result property="strtDt" column="strt_dt"/>
+        <result property="strtTm" column="strt_tm"/>
+        <result property="endTm" column="end_tm"/>
+        <result property="maxNopCnt" column="max_nop_cnt"/>
+        <result property="rsvCnt" column="rsv_cnt"/>
+        <result property="sttsCd" column="stts_cd"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <resultMap id="ReservationRowMap" type="com.project.app.myclass.dto.row.MyClassReservationRow">
+        <id property="rsvId" column="rsv_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="sttsCd" column="stts_cd"/>
+        <result property="rsvDt" column="rsv_dt"/>
+        <result property="rsvTime" column="rsv_time"/>
+        <result property="attendanceStatus" column="attendance_status"/>
+        <result property="reviewWritten" column="review_written"/>
+        <result property="cnclRsn" column="cncl_rsn"/>
+        <result property="updId" column="upd_id"/>
+        <result property="atndYn" column="atnd_yn"/>
+        <result property="checkinAt" column="checkin_at"/>
+    </resultMap>
+
+    <!-- =========================
+         스케줄 목록
+         - rsv_cnt: CANCELED 제외 실제 예약건수로 계산 (A 기준)
+         ========================= -->
+    <select id="selectScheduleList" parameterType="com.project.app.myclass.dto.ScheduleListQuery" resultMap="ScheduleRowMap">
+        SELECT
+        s.schd_id,
+        s.prog_id,
+        p.prog_nm AS prog_nm,
+        s.user_id      AS teacher_id,
+        ua.user_name   AS teacher_name,
+        s.brch_id,
+        b.brch_nm,
+        s.strt_dt,
+        s.strt_tm,
+        s.end_tm,
+        s.max_nop_cnt,
+        (
+        SELECT COUNT(*)
+        FROM RESERVATION rr
+        WHERE rr.schd_id = s.schd_id
+        AND rr.stts_cd != 'CANCELED'
+        ) AS rsv_cnt,
+        s.stts_cd,
+        s.description
+        FROM SCHEDULE s
+        INNER JOIN PROGRAM p      ON p.prog_id = s.prog_id
+        INNER JOIN USERS_ADMIN ua ON ua.user_id = s.user_id
+        INNER JOIN BRANCH b       ON b.brch_id = s.brch_id
+        WHERE 1=1
+        <if test="teacherId != null and teacherId != ''">
+            AND s.user_id = #{teacherId}
+        </if>
+        <if test="brchId != null">
+            AND s.brch_id = #{brchId}
+        </if>
+        <if test="progId != null">
+            AND s.prog_id = #{progId}
+        </if>
+        <if test="sttsCd != null and sttsCd != ''">
+            AND s.stts_cd = #{sttsCd}
+        </if>
+        <if test="fromDt != null">
+            AND s.strt_dt &gt;= #{fromDt}
+        </if>
+        <if test="toDt != null">
+            AND s.strt_dt &lt;= #{toDt}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
+            p.prog_nm LIKE CONCAT('%', #{keyword}, '%')
+            OR b.brch_nm LIKE CONCAT('%', #{keyword}, '%')
+            OR ua.user_name LIKE CONCAT('%', #{keyword}, '%')
+            OR s.description LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+
+        ORDER BY s.strt_dt DESC, s.strt_tm DESC, s.schd_id DESC
+    </select>
+
+    <select id="selectScheduleListPaged" parameterType="com.project.app.myclass.dto.ScheduleListQuery" resultMap="ScheduleRowMap">
+        SELECT
+        s.schd_id,
+        s.prog_id,
+        p.prog_nm AS prog_nm,
+        s.user_id      AS teacher_id,
+        ua.user_name   AS teacher_name,
+        s.brch_id,
+        b.brch_nm,
+        s.strt_dt,
+        s.strt_tm,
+        s.end_tm,
+        s.max_nop_cnt,
+        (
+        SELECT COUNT(*)
+        FROM RESERVATION rr
+        WHERE rr.schd_id = s.schd_id
+        AND rr.stts_cd != 'CANCELED'
+        ) AS rsv_cnt,
+        s.stts_cd,
+        s.description
+        FROM SCHEDULE s
+        INNER JOIN PROGRAM p      ON p.prog_id = s.prog_id
+        INNER JOIN USERS_ADMIN ua ON ua.user_id = s.user_id
+        INNER JOIN BRANCH b       ON b.brch_id = s.brch_id
+        WHERE 1=1
+        <if test="teacherId != null and teacherId != ''">
+            AND s.user_id = #{teacherId}
+        </if>
+        <if test="brchId != null">
+            AND s.brch_id = #{brchId}
+        </if>
+        <if test="progId != null">
+            AND s.prog_id = #{progId}
+        </if>
+        <if test="sttsCd != null and sttsCd != ''">
+            AND s.stts_cd = #{sttsCd}
+        </if>
+        <if test="fromDt != null">
+            AND s.strt_dt &gt;= #{fromDt}
+        </if>
+        <if test="toDt != null">
+            AND s.strt_dt &lt;= #{toDt}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
+            p.prog_nm LIKE CONCAT('%', #{keyword}, '%')
+            OR b.brch_nm LIKE CONCAT('%', #{keyword}, '%')
+            OR ua.user_name LIKE CONCAT('%', #{keyword}, '%')
+            OR s.description LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+
+        ORDER BY s.strt_dt DESC, s.strt_tm DESC, s.schd_id DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="countScheduleList" parameterType="com.project.app.myclass.dto.ScheduleListQuery" resultType="long">
+        SELECT COUNT(*)
+        FROM SCHEDULE s
+        INNER JOIN PROGRAM p      ON p.prog_id = s.prog_id
+        INNER JOIN USERS_ADMIN ua ON ua.user_id = s.user_id
+        INNER JOIN BRANCH b       ON b.brch_id = s.brch_id
+        WHERE 1=1
+        <if test="teacherId != null and teacherId != ''">
+            AND s.user_id = #{teacherId}
+        </if>
+        <if test="brchId != null">
+            AND s.brch_id = #{brchId}
+        </if>
+        <if test="progId != null">
+            AND s.prog_id = #{progId}
+        </if>
+        <if test="sttsCd != null and sttsCd != ''">
+            AND s.stts_cd = #{sttsCd}
+        </if>
+        <if test="fromDt != null">
+            AND s.strt_dt &gt;= #{fromDt}
+        </if>
+        <if test="toDt != null">
+            AND s.strt_dt &lt;= #{toDt}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
+            p.prog_nm LIKE CONCAT('%', #{keyword}, '%')
+            OR b.brch_nm LIKE CONCAT('%', #{keyword}, '%')
+            OR ua.user_name LIKE CONCAT('%', #{keyword}, '%')
+            OR s.description LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+    </select>
+
+    <!-- =========================
+         스케줄 상세(기본정보)
+         - rsv_cnt: CANCELED 제외 실제 예약건수로 계산 (A 기준)
+         ========================= -->
+    <select id="selectScheduleDetail" parameterType="long" resultMap="ScheduleRowMap">
+        SELECT
+        s.schd_id,
+        s.prog_id,
+        p.prog_nm AS prog_nm,
+        s.user_id    AS teacher_id,
+        ua.user_name AS teacher_name,
+        s.brch_id,
+        b.brch_nm,
+        s.strt_dt,
+        s.strt_tm,
+        s.end_tm,
+        s.max_nop_cnt,
+        (
+        SELECT COUNT(*)
+        FROM RESERVATION rr
+        WHERE rr.schd_id = s.schd_id
+        AND rr.stts_cd != 'CANCELED'
+        ) AS rsv_cnt,
+        s.stts_cd,
+        s.description
+        FROM SCHEDULE s
+        INNER JOIN PROGRAM p      ON p.prog_id = s.prog_id
+        INNER JOIN USERS_ADMIN ua ON ua.user_id = s.user_id
+        INNER JOIN BRANCH b       ON b.brch_id = s.brch_id
+        WHERE s.schd_id = #{schdId}
+    </select>
+
+    <!-- =========================
+         예약자 목록 + 출석(LEFT JOIN)
+         - CANCELED 포함해서 전부 내려줌 (요구사항)
+         ========================= -->
+    <select id="selectReservationsByScheduleId" parameterType="long" resultMap="ReservationRowMap">
+        SELECT
+            r.rsv_id,
+            r.user_id,
+            u.user_name,
+            u.phone_number,
+            r.stts_cd,
+            r.rsv_dt,
+            r.rsv_time,
+            r.attendance_status,
+            r.review_written,
+            r.cncl_rsn,
+            r.upd_id,
+            ca.atnd_yn,
+            ca.checkin_at
+        FROM RESERVATION r
+                 LEFT JOIN USERS u ON u.user_id = r.user_id
+                 LEFT JOIN CLASS_ATTENDANCE ca ON ca.rsv_id = r.rsv_id
+        WHERE r.schd_id = #{schdId}
+        ORDER BY r.rsv_id DESC
+    </select>
+
+</mapper>

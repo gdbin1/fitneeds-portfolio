@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.program.mapper.ProgramMapper">
+
+    <!-- =========================
+         프로그램 전체 조회
+    ========================= -->
+    <select id="findAll"
+            resultType="com.project.app.program.domain.Program">
+        SELECT
+            prog_id AS progId,
+            prog_nm AS progNm,
+            sport_id AS sportId,
+			brch_id AS brchId,
+            use_yn AS useYn,
+            one_time_amt AS oneTimeAmt,
+            reg_dt AS regDt,
+            upd_dt AS updDt
+        FROM PROGRAM
+        ORDER BY reg_dt DESC
+    </select>
+
+    <!-- =========================
+         프로그램 ID로 조회
+    ========================= -->
+    <select id="findById"
+            parameterType="long"
+            resultType="com.project.app.program.domain.Program">
+        SELECT
+            prog_id AS progId,
+            prog_nm AS progNm,
+            sport_id AS sportId,
+			brch_id AS brchId,
+            use_yn AS useYn,
+            one_time_amt AS oneTimeAmt,
+            reg_dt AS regDt,
+            upd_dt AS updDt
+        FROM PROGRAM
+        WHERE prog_id = #{progId}
+    </select>
+
+    <!-- =========================
+         프로그램 생성
+    ========================= -->
+    <insert id="insert"
+            parameterType="com.project.app.program.domain.Program"
+            useGeneratedKeys="true"
+            keyProperty="progId">
+        INSERT INTO PROGRAM (
+            prog_nm,
+            sport_id,
+            brch_id,
+            use_yn,
+            one_time_amt,
+            reg_dt,
+            upd_dt
+        ) VALUES (
+            #{progNm},
+            #{sportId},
+            #{brchId},
+            #{useYn},
+            #{oneTimeAmt},
+            #{regDt, jdbcType=TIMESTAMP},
+            #{updDt, jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!-- =========================
+         프로그램 수정
+    ========================= -->
+    <update id="update"
+            parameterType="com.project.app.program.domain.Program">
+        UPDATE PROGRAM
+        SET
+            prog_nm = #{progNm},
+            sport_id = #{sportId},
+			brch_id = #{brchId},
+            use_yn = #{useYn},
+            one_time_amt = #{oneTimeAmt},
+            upd_dt = #{updDt}
+        WHERE prog_id = #{progId}
+    </update>
+
+    <!-- =========================
+         프로그램 삭제
+    ========================= -->
+    <delete id="delete"
+            parameterType="long">
+        DELETE FROM PROGRAM
+        WHERE prog_id = #{progId}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,122 @@
+/* ===== Overlay ===== */
+/* .modal-buy-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* ===== Container ===== */
+.buy-modal-container {
+
+    position: fixed;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4); 
+}
+
+/* ===== Content ===== */
+.buy-modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+/* ===== Title ===== */
+.buy-title {
+  margin: 0 0 20px;
+  text-align: center;
+  border-bottom: 2px solid #FFC107;
+  padding-bottom: 10px;
+}
+
+/* ===== Info ===== */
+.buy-info {
+  margin-bottom: 20px;
+}
+
+.buy-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.buy-row .label {
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.buy-row .value {
+  color: #212529;
+}
+
+/* ===== Count ===== */
+.buy-count-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.buy-count-row label {
+  min-width: 80px;
+  font-weight: 600;
+}
+
+.buy-count-row input {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+}
+
+/* ===== Total ===== */
+.buy-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff8e1;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.buy-total strong {
+  font-size: 18px;
+}
+
+/* ===== Actions ===== */
+.buy-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.buy-modal-actions button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===== 구매 버튼 ===== */
+.buy-modal-actions .btn-primary {
+  background-color: #FFC107;   /* 노란색 */
+  color: #212529;              /* 검정 텍스트 */
+  border: none;                /* ❌ 보더 제거 */
+  font-weight: 700;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.buy-modal-actions .btn-primary:hover {
+  background-color: #ffb300;   /* 살짝 진한 노랑 */
+ 
+}

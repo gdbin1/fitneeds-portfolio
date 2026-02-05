@@ -1,0 +1,117 @@
+/* PassTradeDetail.css */
+
+/* 화면 전체를 덮는 반투명 배경 */
+
+
+/* ✅ 화면 전체를 덮는 반투명 배경 */
+/* .detail-modal-backdrop {
+  position: fixed;
+  inset: 0;
+ 
+    background: rgba(0, 0, 0, 0.4);   
+   
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* ===== 모달 박스 ===== */
+.detail-modal-content {
+  background: #ffffff;
+  width: 500px;
+  max-width: 90%;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== 헤더 ===== */
+.detail-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.detail-pass-image {
+  width: 88px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.detail-header-text {
+  flex: 1;
+}
+
+.detail-title {
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #FFC107;
+  border-radius: 6px;
+}
+
+.detail-pass-name {
+  margin-top: 6px;
+  color: #6c757d;
+}
+
+/* ===== 정보 행 ===== */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e9ecef;
+}
+
+.detail-row strong {
+  min-width: 90px;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+/* ===== 금액 강조 ===== */
+.detail-row.amount {
+  margin-top: 12px;
+  padding: 12px;
+  background: #fff8e1;
+  border-radius: 6px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+/* ===== 판매 사유 ===== */
+.detail-row.reason {
+  margin-top: 12px;
+  align-items: flex-start;
+}
+
+/* ===== 버튼 ===== */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e9ecef;
+}
+
+.btn-outline {
+  background-color: #ffffff;
+  border: 1px solid #c0c0c0;
+  color: #212529;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.btn-primary {
+ 
+  border-radius: 6px;
+  
+}

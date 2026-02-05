@@ -1,0 +1,336 @@
+/* ===============================
+   거래 게시글 페이지 전체
+   =============================== */
+
+.pass-trade-post {
+  padding-left: 32px;
+  padding-right: 24px;
+}
+
+/* 제목 */
+.pass-trade-post h1 {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   🔹 상단 툴바 (검색 / 필터 / 버튼)
+   =============================== */
+
+.trade-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 24px;
+  margin-bottom: 40px;
+
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+
+/* 왼쪽 영역 */
+.trade-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 버튼 / 셀렉트 공통 */
+.filter-btn,
+.filter-select,
+.search-btn {
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+}
+
+/* 목록 버튼 */
+.filter-btn {
+  border: none;
+  cursor: pointer;
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+.filter-btn.active {
+  background-color: #ffc107;
+  font-weight: 700;
+}
+
+/* 셀렉트 */
+.filter-select {
+  border: 1px solid #ced4da;
+  background-color: #ffffff;
+}
+
+/* 검색 버튼 */
+.search-btn {
+  border: none;
+  background-color: #0d6efd;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #343a40;
+}
+
+/* 오른쪽 영역 */
+.trade-toolbar-right {
+  display: flex;
+  align-items: center;
+}
+
+/* 등록 버튼 */
+.register-btn {
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 700;
+
+  background-color: #ffc107;
+  color: #212529;
+
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background-color: #f58c03;
+}
+
+/* ===============================
+   🔹 게시글 카드 리스트
+   =============================== */
+
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(4, 260px);
+  gap: 90px;
+  align-items: start;
+}
+
+/* ===============================
+   🔹 카드
+   =============================== */
+
+.post-card {
+  position: relative;
+
+  width: 280px;
+  padding: 14px;
+
+  border: 4px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #ffffff;
+
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* hover 효과 */
+.post-card:hover {
+  background-color: #d87bfd;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* 카드 제목 */
+.post-card h3 {
+  margin-top: 0;
+}
+
+/* 이용권 이미지 */
+.pass-image {
+  width: 250px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+/* ===============================
+   ⭐ 즐겨찾기 버튼 (항상 보임)
+   =============================== */
+
+.card-actions {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+
+  opacity: 1;            /* hover 의존 제거 */
+  pointer-events: auto;
+}
+
+/* ===============================
+   🔹 공통 모달 백드롭
+   =============================== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 100000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===============================
+   🔹 모달 공통 컨테이너
+   =============================== */
+
+.register-modal-content,
+.pass-trade-detail,
+.buy-modal {
+  background: #ffffff;
+  border-radius: 12px;
+ 
+}
+
+/* ===============================
+   🔹 등록 모달
+   =============================== */
+
+.register-modal-content {
+  width: 420px;
+  max-width: 92%;
+  padding: 24px 24px 20px;
+   position: relative; 
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  animation: modalFadeUp 0.2s ease-out;
+}
+
+.register-modal-content h2 {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* 등록 폼 */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.register-form select,
+.register-form input,
+.register-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  background-color: #ffffff;
+}
+
+.register-form select:focus,
+.register-form input:focus,
+.register-form textarea:focus {
+  outline: none;
+  border-color: #ffc107;
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.25);
+}
+
+.register-form textarea {
+  resize: none;
+  min-height: 90px;
+}
+
+.register-form input[readonly] {
+  background-color: #f8f9fa;
+  font-weight: 700;
+  border: 1px dashed #adb5bd;
+}
+
+/* 버튼 */
+.register-form button {
+  height: 44px;
+  font-size: 15px;
+  font-weight: 700;
+
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.register-form button[type='submit'] {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.register-form button[type='submit']:hover {
+  background-color: #f5b700;
+}
+
+.register-form button:disabled {
+  background-color: #dee2e6;
+  color: #868e96;
+  cursor: not-allowed;
+}
+
+.register-form button[type='button'] {
+  background-color: #e9ecef;
+}
+
+.register-form button[type='button']:hover {
+  background-color: #ced4da;
+}
+
+/* ===============================
+   모달 애니메이션
+   =============================== */
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ===============================
+   입력 오류 툴팁
+   =============================== */
+/* input 감싸는 wrapper */
+.input-wrapper {
+  position: relative;
+}
+
+/* 말풍선 */
+.input-tooltip {
+  position: absolute;
+
+  /* 🔥 오른쪽 위에 배치 */
+  top: -8px;
+  right: 6px;
+
+  padding: 4px 8px;
+  background: #dc3545;
+  color: #fff;
+
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+
+  z-index: 20;
+}

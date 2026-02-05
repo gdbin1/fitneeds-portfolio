@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.reservation.mapper.ReservationMapper">
+
+    <select id="selectReservationList"
+            parameterType="com.project.app.reservation.dto.ReservationSearchRequest"
+            resultType="com.project.app.reservation.dto.ReservationResponse">
+        SELECT
+        r.rsv_id AS rsvId,
+        u.user_name AS memberName,
+        st.sport_nm AS sportName,
+        b.brch_nm AS branchName,
+        r.schd_id AS schdId,
+        r.rsv_dt AS rsvDt,
+        r.rsv_time AS rsvTime,
+        r.stts_cd AS sttsCd,
+        r.cncl_rsn AS cnclRsn,
+        r.upd_id AS updId,
+        r.reg_dt AS regDt,
+        r.upd_dt AS updDt
+        FROM RESERVATION r
+        INNER JOIN USERS u ON r.user_id = u.user_id
+        INNER JOIN BRANCH b ON r.brch_id = b.brch_id
+        INNER JOIN SCHEDULE s ON r.schd_id = s.schd_id
+        INNER JOIN PROGRAM p ON s.prog_id = p.prog_id
+        INNER JOIN SPORT_TYPE st ON p.sport_id = st.sport_id
+        <where>
+            <if test="branchId != null">
+                AND r.brch_id = #{branchId}
+            </if>
+            <if test="memberName != null and memberName != ''">
+                AND u.user_name LIKE CONCAT('%', #{memberName}, '%')
+            </if>
+            <if test="sttsCd != null and sttsCd != ''">
+                AND r.stts_cd = #{sttsCd}
+            </if>
+            <if test="startDate != null">
+                AND r.rsv_dt &gt;= #{startDate}
+            </if>
+        </where>
+        ORDER BY r.rsv_dt DESC, r.rsv_time DESC
+        <if test="paging != null">
+            LIMIT #{paging.size} OFFSET #{paging.offset}
+        </if>
+    </select>
+
+    <select id="countReservationList"
+            parameterType="com.project.app.reservation.dto.ReservationSearchRequest"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM RESERVATION r
+        INNER JOIN USERS u ON r.user_id = u.user_id
+        INNER JOIN BRANCH b ON r.brch_id = b.brch_id
+        INNER JOIN SCHEDULE s ON r.schd_id = s.schd_id
+        INNER JOIN PROGRAM p ON s.prog_id = p.prog_id
+        INNER JOIN SPORT_TYPE st ON p.sport_id = st.sport_id
+        <where>
+            <if test="branchId != null">
+                AND r.brch_id = #{branchId}
+            </if>
+            <if test="memberName != null and memberName != ''">
+                AND u.user_name LIKE CONCAT('%', #{memberName}, '%')
+            </if>
+            <if test="sttsCd != null and sttsCd != ''">
+                AND r.stts_cd = #{sttsCd}
+            </if>
+            <if test="startDate != null">
+                AND r.rsv_dt &gt;= #{startDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReservationDetail"
+            parameterType="long"
+            resultType="com.project.app.reservation.dto.ReservationResponse">
+        SELECT r.rsv_id    AS rsvId,
+               u.user_name AS memberName,
+               st.sport_nm AS sportName,
+               b.brch_nm   AS branchName,
+               r.schd_id   AS schdId,
+               r.rsv_dt    AS rsvDt,
+               r.rsv_time  AS rsvTime,
+               r.stts_cd   AS sttsCd,
+               r.cncl_rsn  AS cnclRsn,
+               r.upd_id    AS updId,
+               r.reg_dt    AS regDt,
+               r.upd_dt    AS updDt
+        FROM RESERVATION r
+                 INNER JOIN USERS u ON r.user_id = u.user_id
+                 INNER JOIN BRANCH b ON r.brch_id = b.brch_id
+                 INNER JOIN SCHEDULE s ON r.schd_id = s.schd_id
+                 INNER JOIN PROGRAM p ON s.prog_id = p.prog_id
+                 INNER JOIN SPORT_TYPE st ON p.sport_id = st.sport_id
+        WHERE r.rsv_id = #{rsvId}
+    </select>
+
+    <select id="countDuplicateReservation"
+            parameterType="map"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM RESERVATION r
+                 INNER JOIN SCHEDULE s ON r.schd_id = s.schd_id
+        WHERE r.user_id = #{userId}
+          AND s.strt_dt = #{startDate}
+          AND s.strt_tm = #{startTime}
+          AND r.stts_cd = #{status}
+    </select>
+</mapper>

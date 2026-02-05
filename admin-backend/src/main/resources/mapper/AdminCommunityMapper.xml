@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.community.mapper.AdminCommunityMapper">
+
+  <!-- ===============================
+       ADMIN 커뮤니티 목록
+  =============================== -->
+ <select id="selectCommunityPostList"
+        resultType="com.project.app.community.dto.CommunityPostDto">
+
+		SELECT
+		p.post_id,
+		p.post_type,
+		p.category,
+		p.title,
+		p.views,
+		p.post_visible,
+		p.created_at,
+
+		u.email AS writer_email,
+
+		COUNT(c.comment_id) AS commentCount
+		FROM COMMUNITY_POST p
+		LEFT JOIN USERS u
+		ON p.writer_id = u.user_id
+
+		LEFT JOIN COMMUNITY_COMMENT c
+		ON p.post_id = c.post_id
+		AND c.comment_visible = 1
+
+  <where>
+    AND p.post_type = 'COMMUNITY'
+
+    <if test="category != null and category != ''">
+      AND p.category = #{category}
+    </if>
+
+    <if test="category == null or category == ''">
+      AND p.category != '개인정보동의'
+    </if>
+
+    <if test="keyword != null and keyword != ''">
+      AND p.title LIKE CONCAT('%', #{keyword}, '%')
+    </if>
+
+    <if test="visible != null">
+      AND p.post_visible = #{visible}
+    </if>
+  </where>
+
+  GROUP BY
+    p.post_id,
+    p.post_type,
+    p.category,
+    p.title,
+    p.views,
+    p.post_visible,
+    p.created_at,
+    u.email
+
+  <choose>
+    <when test="orderType == 'views'">
+      ORDER BY p.views DESC
+    </when>
+    <when test="orderType == 'comments'">
+      ORDER BY commentCount DESC
+    </when>
+    <otherwise>
+      ORDER BY p.created_at DESC
+    </otherwise>
+  </choose>
+
+  LIMIT #{limit} OFFSET #{offset}
+</select>
+
+
+  <!-- ===============================
+       ADMIN 커뮤니티 전체 건수
+  =============================== -->
+  <select id="selectCommunityPostCount" resultType="int">
+    SELECT COUNT(DISTINCT p.post_id)
+    FROM COMMUNITY_POST p
+    LEFT JOIN COMMUNITY_COMMENT c
+      ON p.post_id = c.post_id
+     AND c.comment_visible = 1
+
+    <where>
+      AND p.post_type = 'COMMUNITY'
+
+      <if test="category != null and category != ''">
+        AND p.category = #{category}
+      </if>
+
+      <if test="keyword != null and keyword != ''">
+        AND p.title LIKE CONCAT('%', #{keyword}, '%')
+      </if>
+
+      <if test="visible != null">
+        AND p.post_visible = #{visible}
+      </if>
+    </where>
+  </select>
+
+  <!-- ===============================
+       ✅ 모집 참여자 수 조회
+       (게시글 삭제 가능 여부 판단)
+  =============================== -->
+  <select id="selectRecruitJoinCountByPostId" resultType="int">
+    SELECT COUNT(*)
+    FROM COMMUNITY_RECRUIT_JOIN
+    WHERE post_id = #{postId}
+  </select>
+
+  <!-- ===============================
+       ADMIN 게시글 상세
+  =============================== -->
+  <select id="selectCommunityPostDetail"
+        resultType="com.project.app.community.dto.CommunityPostDto">
+
+		SELECT
+		p.post_id,
+		p.post_type,
+		p.category,
+		p.title,
+		p.content,
+		p.views,
+		p.post_visible,
+		p.created_at,
+		p.updated_at,
+
+		u.email AS writer_email
+		FROM COMMUNITY_POST p
+		LEFT JOIN USERS u
+		ON p.writer_id = u.user_id
+
+		WHERE p.post_id = #{postId}
+		AND p.post_type = 'COMMUNITY'
+</select>
+
+
+  <!-- ===============================
+       숨김 / 보이기
+  =============================== -->
+  <update id="updatePostVisible">
+    UPDATE COMMUNITY_POST
+    SET post_visible = #{postVisible},
+        updated_at = NOW()
+    WHERE post_id = #{postId}
+      AND post_type = 'COMMUNITY'
+  </update>
+
+  <!-- ===============================
+       ✅ ADMIN 모집 참여자 목록 조회
+       (created_at 컬럼 ❌ → join_id 기준)
+  =============================== -->
+  <select id="selectRecruitUsersByPostId"
+        resultType="com.project.app.community.dto.RecruitUserDto">
+
+  SELECT
+    crj.join_id      AS joinId,
+    u.user_id        AS userId,
+    u.email          AS userEmail,
+    u.user_name      AS userName
+  FROM COMMUNITY_RECRUIT_JOIN crj
+  JOIN USERS u
+    ON crj.user_id = u.user_id
+  WHERE crj.post_id = #{postId}
+  ORDER BY crj.join_id ASC
+
+</select>
+
+
+	<!-- ===============================
+       ADMIN 모집 참여자 삭제
+  =============================== -->
+  <delete id="deleteRecruitJoin">
+    DELETE FROM COMMUNITY_RECRUIT_JOIN
+    WHERE join_id = #{joinId}
+  </delete>
+
+	<!-- ===============================
+       ADMIN 게시글 삭제
+  =============================== -->
+  <delete id="deleteCommunityPost">
+    DELETE FROM COMMUNITY_POST
+    WHERE post_id = #{postId}
+      AND post_type = 'COMMUNITY'
+  </delete>
+
+</mapper>

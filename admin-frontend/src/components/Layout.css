@@ -1,0 +1,31 @@
+/* Layout component specific styles */
+
+.layout-wrapper {
+  display: block;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ensure Navigation is always on top and consistent across all pages */
+.layout-wrapper > nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.layout-main {
+  padding-top: 80px; /* Add padding to prevent content from being hidden under fixed header */
+  overflow-x: hidden;
+}
+
+/* Home page doesn't need padding-top as header is transparent initially */
+.layout-main-home {
+  padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+}
+

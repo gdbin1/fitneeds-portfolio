@@ -1,0 +1,259 @@
+/* ScheduleListPage.css */
+
+:root {
+    --primary-color: #FFC107;
+    --primary-hover: #e0a800;
+    --text-dark: #222;
+    --text-gray: #666;
+    --text-light: #999;
+    --bg-page: #f8f9fa;
+    --white: #ffffff;
+    --border-soft: #ececec;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.schedule-list-page-container {
+    max-width: 900px; /* 조금 더 넓게 확보 */
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: 'Pretendard', -apple-system, system-ui, sans-serif;
+}
+
+/* 상단 타이틀 섹션 */
+.schedule-header-info {
+    font-size: 2em;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.schedule-header-info::before {
+    content: '';
+    width: 6px;
+    height: 30px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+/* 검색 폼 - 그림자 대신 깔끔한 테두리 강조 */
+.search-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+    padding: 8px;
+    background-color: var(--white);
+    border-radius: 16px;
+    border: 2px solid var(--border-soft);
+    transition: border-color 0.3s ease;
+}
+
+.search-form:focus-within {
+    border-color: var(--primary-color);
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 14px 20px;
+    border: none;
+    font-size: 1.1em;
+    outline: none;
+    background: transparent;
+
+    color: #222 !important;      /* 글자색을 아주 진한 회색으로 강제 지정 */
+    display: block;             /* 요소를 확실히 노출 */
+    width: 100%;                /* 너비 확보 */
+}
+
+/* 추가로 placeholder가 너무 진해서 안 보이는 건 아닌지도 확인하세요 */
+.search-input::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.search-button {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    border: none;
+    padding: 0 25px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.02);
+}
+
+/* 스케줄 리스트 컨테이너 */
+.schedules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 개별 스케줄 카드 스타일 - 핵심 개선 부분 */
+.schedule-item-link {
+    display: grid; /* Flex 대신 Grid로 레이아웃 정교화 */
+    grid-template-columns: 1fr auto; /* 왼쪽 정보 | 오른쪽 시간 정보 */
+    align-items: center;
+    text-decoration: none;
+    background-color: var(--white);
+    padding: 24px 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schedule-item-link:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+/* 좌측 정보 영역 */
+.item-left-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.item-user-name {
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #007bff; /* 강사명은 신뢰감 있는 블루톤 유지 */
+    text-transform: uppercase;
+}
+
+.item-prog-name {
+    font-size: 1.3em;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.item-brch-name {
+    font-size: 0.95em;
+    color: var(--text-gray);
+    margin-top: 4px;
+}
+
+/* 우측 하단 푸터 영역 -> 우측 중앙 배치로 변경하여 가독성 증대 */
+.item-footer {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-date {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.item-time {
+    font-size: 0.95em;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* 페이지네이션 - 모던한 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.pagination-button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    background-color: var(--white);
+    color: var(--text-gray);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    color: var(--primary-hover);
+}
+
+.pagination-button.active {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.filter-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-filter-container {
+    position: relative;
+}
+
+.date-filter-btn {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.date-filter-btn.active {
+    background-color: #FFC107;
+    border-color: #FFC107;
+}
+
+.calendar-popup {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.reset-date-btn {
+    background: none;
+    border: none;
+    color: #888;
+    text-decoration: underline;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+    .schedule-item-link {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+    .item-footer {
+        text-align: left;
+        border-top: 1px dashed var(--border-soft);
+        padding-top: 15px;
+    }
+}

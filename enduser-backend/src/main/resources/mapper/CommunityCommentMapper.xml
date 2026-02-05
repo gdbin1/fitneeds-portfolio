@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.community.mapper.CommunityCommentMapper">
+
+    <!--
+        USER 댓글 목록 조회
+        - 특정 게시글(postId)에 대한 댓글
+        - 숨김 처리되지 않은 댓글만 조회
+        - comment_visible = 1
+    -->
+    <select id="selectVisibleCommentsByPostId"
+            parameterType="long"
+            resultType="com.project.app.community.dto.CommunityCommentDto">
+
+        SELECT
+            c.comment_id    AS commentId,
+            c.post_id       AS postId,
+            c.writer_id     AS writerId,
+            COALESCE(u.user_name, '탈퇴한 회원') AS writerName,
+            c.writer_type   AS writerType,
+            c.content,
+            c.created_at    AS createdAt
+        FROM COMMUNITY_COMMENT c
+        LEFT JOIN USERS u
+               ON u.user_id = c.writer_id
+        WHERE c.post_id = #{postId}
+          AND c.comment_visible = 1
+        ORDER BY c.comment_id ASC
+
+    </select>
+
+    <!-- =========================
+         🔒 댓글 작성자 본인 여부 체크
+         ========================= -->
+    <select id="countByCommentIdAndWriterId"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM COMMUNITY_COMMENT
+        WHERE comment_id = #{commentId}
+          AND writer_id = #{writerId}
+          AND comment_visible = 1
+    </select>
+
+	<!-- =========================
+         ✏️ 댓글 수정 (본인만)
+         ========================= -->
+    <update id="updateCommentContent">
+        UPDATE COMMUNITY_COMMENT
+        SET
+            content = #{content}
+        WHERE comment_id = #{commentId}
+          AND writer_id = #{writerId}
+          AND comment_visible = 1
+    </update>
+
+	<!-- =========================
+         🗑 댓글 삭제 (본인만)
+         ========================= -->
+    <delete id="deleteCommentByWriter">
+        DELETE
+        FROM COMMUNITY_COMMENT
+        WHERE comment_id = #{commentId}
+          AND writer_id = #{writerId}
+    </delete>
+
+</mapper>

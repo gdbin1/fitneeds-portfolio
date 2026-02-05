@@ -1,0 +1,341 @@
+.loader {
+  text-align: center;
+  padding: 40px;
+}
+
+.loaderSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ddd;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.headerTitle {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.headerSubtitle {
+  color: #666;
+  margin-top: 4px;
+}
+
+.headerButton {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.headerButton:hover {
+  background: #229954;
+}
+
+.headerButton:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.contentBox {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a237e;
+}
+
+.sectionTitleText {
+  font-weight: 600;
+  color: #333;
+}
+
+.branchSelector {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.branchSelectLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.branchSelect {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  background: #fff;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.formLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.formInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a237e;
+}
+
+.modalCloseButton {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+}
+
+.modalCloseButton:hover {
+  color: #333;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 2px solid #ddd;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeadRow {
+  background: #f2f2f2;
+}
+
+.tableHeadCell {
+  cursor: pointer;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.tableHeadCell:hover {
+  background: #e8e8e8;
+}
+
+.tableBodyRow {
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.2s;
+}
+
+.tableBodyRow:hover {
+  background: #f9f9f9;
+}
+
+.tableCell {
+  padding: 12px;
+  text-align: left;
+}
+
+.actionButtonGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.actionButton:hover {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.actionButtonDelete {
+  padding: 6px 12px;
+  border: 1px solid #e74c3c;
+  background: #fff;
+  color: #e74c3c;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.actionButtonDelete:hover {
+  background: #f8d7da;
+}
+
+.buttonPrimary {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.buttonPrimary:hover {
+  background: #2980b9;
+}
+
+.buttonPrimary:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.buttonSecondary {
+  background: #95a5a6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.buttonSecondary:hover {
+  background: #7f8c8d;
+}
+
+.buttonSecondary:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+}
+
+.emptyStateIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyStateTitle {
+  font-weight: 600;
+}
+
+.emptyStateDescription {
+  margin-top: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

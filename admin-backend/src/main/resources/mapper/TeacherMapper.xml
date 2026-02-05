@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.teachers.mapper.TeacherMapper">
+
+    <!-- TeacherProfile ResultMap -->
+    <resultMap id="TeacherProfileResultMap" type="com.project.app.teachers.entity.TeacherProfile">
+        <id property="userId" column="user_id" />
+        <result property="brchId" column="brch_id" />
+        <result property="sttsCd" column="stts_cd" />
+        <result property="hireDt" column="hire_dt" />
+        <result property="leaveDt" column="leave_dt" />
+        <result property="leaveRsn" column="leave_rsn" />
+        <result property="intro" column="intro" />
+        <result property="profileImgUrl" column="profile_img_url" />
+        <result property="regDt" column="reg_dt" />
+        <result property="updDt" column="upd_dt" />
+        <result property="updUserId" column="upd_user_id" />
+    </resultMap>
+
+    <!-- TeacherSport ResultMap -->
+    <resultMap id="TeacherSportResultMap" type="com.project.app.teachers.entity.TeacherSport">
+        <id property="userId" column="user_id" />
+        <id property="sportId" column="sport_id" />
+        <result property="mainYn" column="main_yn" />
+        <result property="sortNo" column="sort_no" />
+        <result property="regDt" column="reg_dt" />
+        <result property="updDt" column="upd_dt" />
+    </resultMap>
+
+    <!-- TeacherCertificate ResultMap -->
+    <resultMap id="TeacherCertificateResultMap" type="com.project.app.teachers.entity.TeacherCertificate">
+        <id property="certId" column="cert_id" />
+        <result property="userId" column="user_id" />
+        <result property="certNm" column="cert_nm" />
+        <result property="issuer" column="issuer" />
+        <result property="acqDt" column="acq_dt" />
+        <result property="certNo" column="cert_no" />
+        <result property="regDt" column="reg_dt" />
+        <result property="updDt" column="upd_dt" />
+        <result property="updUserId" column="upd_user_id" />
+    </resultMap>
+
+    <!-- TeacherCareer ResultMap -->
+    <resultMap id="TeacherCareerResultMap" type="com.project.app.teachers.entity.TeacherCareer">
+        <id property="careerId" column="career_id" />
+        <result property="userId" column="user_id" />
+        <result property="orgNm" column="org_nm" />
+        <result property="roleNm" column="role_nm" />
+        <result property="strtDt" column="strt_dt" />
+        <result property="endDt" column="end_dt" />
+        <result property="regDt" column="reg_dt" />
+        <result property="updDt" column="upd_dt" />
+        <result property="updUserId" column="upd_user_id" />
+    </resultMap>
+
+    <!-- ========================= TeacherProfile Queries ========================= -->
+
+    <select id="findAll" resultMap="TeacherProfileResultMap">
+        SELECT * FROM TEACHER_PROFILE
+        ORDER BY user_id
+    </select>
+
+    <select id="findById" resultMap="TeacherProfileResultMap">
+        SELECT * FROM TEACHER_PROFILE
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="findBySttsCd" resultMap="TeacherProfileResultMap">
+        SELECT * FROM TEACHER_PROFILE
+        WHERE stts_cd = #{sttsCd}
+        ORDER BY user_id
+    </select>
+
+    <select id="findByBrchIdAndSttsCd" resultMap="TeacherProfileResultMap">
+        SELECT * FROM TEACHER_PROFILE
+        WHERE brch_id = #{brchId}
+          AND stts_cd = #{sttsCd}
+        ORDER BY user_id
+    </select>
+
+    <select id="findByUserIdInAndFilters" resultMap="TeacherProfileResultMap">
+        SELECT * FROM TEACHER_PROFILE
+        WHERE user_id IN
+        <foreach collection="userIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        <if test="brchId != null">
+            AND brch_id = #{brchId}
+        </if>
+        <if test="sttsCd != null">
+            AND stts_cd = #{sttsCd}
+        </if>
+        ORDER BY user_id
+    </select>
+
+    <select id="findTeacherAdminsByFilters" resultType="com.project.app.userAdmin.entity.UserAdmin">
+        SELECT DISTINCT
+            ua.user_id AS userId,
+            ua.email AS email,
+            ua.user_name AS userName,
+            ua.phone_number AS phoneNumber,
+            ua.role AS role,
+            ua.is_active AS isActive,
+            ua.brch_id AS brchId
+        FROM USERS_ADMIN ua
+        LEFT JOIN TEACHER_PROFILE tp ON tp.user_id = ua.user_id
+        LEFT JOIN TEACHER_SPORT ts ON ts.user_id = ua.user_id
+        WHERE ua.role = 'TEACHER'
+        <if test="brchId != null">
+            AND ua.brch_id = #{brchId}
+        </if>
+        <if test="sportId != null">
+            AND ts.sport_id = #{sportId}
+        </if>
+        <if test="sttsCd != null">
+            AND tp.stts_cd = #{sttsCd}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
+                ua.user_name LIKE CONCAT('%', #{keyword}, '%')
+                OR ua.phone_number LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+        ORDER BY ua.user_name, ua.user_id
+    </select>
+
+    <select id="findTeacherAdminsByFiltersPaged" resultType="com.project.app.userAdmin.entity.UserAdmin">
+        SELECT DISTINCT
+            ua.user_id AS userId,
+            ua.email AS email,
+            ua.user_name AS userName,
+            ua.phone_number AS phoneNumber,
+            ua.role AS role,
+            ua.is_active AS isActive,
+            ua.brch_id AS brchId
+        FROM USERS_ADMIN ua
+        LEFT JOIN TEACHER_PROFILE tp ON tp.user_id = ua.user_id
+        LEFT JOIN TEACHER_SPORT ts ON ts.user_id = ua.user_id
+        WHERE ua.role = 'TEACHER'
+        <if test="brchId != null">
+            AND ua.brch_id = #{brchId}
+        </if>
+        <if test="sportId != null">
+            AND ts.sport_id = #{sportId}
+        </if>
+        <if test="sttsCd != null">
+            AND tp.stts_cd = #{sttsCd}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
+                ua.user_name LIKE CONCAT('%', #{keyword}, '%')
+                OR ua.phone_number LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+        ORDER BY ua.user_name, ua.user_id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countTeacherAdminsByFilters" resultType="long">
+        SELECT COUNT(DISTINCT ua.user_id)
+        FROM USERS_ADMIN ua
+        LEFT JOIN TEACHER_PROFILE tp ON tp.user_id = ua.user_id
+        LEFT JOIN TEACHER_SPORT ts ON ts.user_id = ua.user_id
+        WHERE ua.role = 'TEACHER'
+        <if test="brchId != null">
+            AND ua.brch_id = #{brchId}
+        </if>
+        <if test="sportId != null">
+            AND ts.sport_id = #{sportId}
+        </if>
+        <if test="sttsCd != null">
+            AND tp.stts_cd = #{sttsCd}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (
+                ua.user_name LIKE CONCAT('%', #{keyword}, '%')
+                OR ua.phone_number LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO TEACHER_PROFILE (
+            user_id, brch_id, stts_cd, hire_dt, leave_dt, leave_rsn,
+            intro, profile_img_url, reg_dt, upd_dt, upd_user_id
+        ) VALUES (
+            #{userId}, #{brchId}, #{sttsCd}, #{hireDt}, #{leaveDt}, #{leaveRsn},
+            #{intro}, #{profileImgUrl}, #{regDt}, #{updDt}, #{updUserId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE TEACHER_PROFILE
+        SET brch_id = #{brchId},
+            stts_cd = #{sttsCd},
+            hire_dt = #{hireDt},
+            leave_dt = #{leaveDt},
+            leave_rsn = #{leaveRsn},
+            intro = #{intro},
+            profile_img_url = #{profileImgUrl},
+            upd_dt = #{updDt},
+            upd_user_id = #{updUserId}
+        WHERE user_id = #{userId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TEACHER_PROFILE
+        WHERE user_id = #{userId}
+    </delete>
+
+    <!-- ========================= TeacherSport Queries ========================= -->
+
+    <select id="findSportsByUserId" resultMap="TeacherSportResultMap">
+        SELECT * FROM TEACHER_SPORT
+        WHERE user_id = #{userId}
+        ORDER BY sort_no
+    </select>
+
+    <select id="findUserIdsBySportId" resultType="string">
+        SELECT user_id FROM TEACHER_SPORT
+        WHERE sport_id = #{sportId}
+    </select>
+
+    <insert id="insertSport">
+        INSERT INTO TEACHER_SPORT (
+            user_id, sport_id, main_yn, sort_no, reg_dt, upd_dt
+        ) VALUES (
+            #{userId}, #{sportId}, #{mainYn}, #{sortNo}, #{regDt}, #{updDt}
+        )
+    </insert>
+
+    <delete id="deleteSportsByUserId">
+        DELETE FROM TEACHER_SPORT
+        WHERE user_id = #{userId}
+    </delete>
+
+    <!-- ========================= TeacherCertificate Queries ========================= -->
+
+    <select id="findCertsByUserId" resultMap="TeacherCertificateResultMap">
+        SELECT * FROM TEACHER_CERTIFICATE
+        WHERE user_id = #{userId}
+        ORDER BY cert_id
+    </select>
+
+    <insert id="insertCert" useGeneratedKeys="true" keyProperty="certId">
+        INSERT INTO TEACHER_CERTIFICATE (
+            user_id, cert_nm, issuer, acq_dt, cert_no, reg_dt, upd_dt, upd_user_id
+        ) VALUES (
+            #{userId}, #{certNm}, #{issuer}, #{acqDt}, #{certNo}, #{regDt}, #{updDt}, #{updUserId}
+        )
+    </insert>
+
+    <delete id="deleteCertsByUserId">
+        DELETE FROM TEACHER_CERTIFICATE
+        WHERE user_id = #{userId}
+    </delete>
+
+    <!-- ========================= TeacherCareer Queries ========================= -->
+
+    <select id="findCareersByUserId" resultMap="TeacherCareerResultMap">
+        SELECT * FROM TEACHER_CAREER
+        WHERE user_id = #{userId}
+        ORDER BY career_id
+    </select>
+
+    <insert id="insertCareer" useGeneratedKeys="true" keyProperty="careerId">
+        INSERT INTO TEACHER_CAREER (
+            user_id, org_nm, role_nm, strt_dt, end_dt, reg_dt, upd_dt, upd_user_id
+        ) VALUES (
+            #{userId}, #{orgNm}, #{roleNm}, #{strtDt}, #{endDt}, #{regDt}, #{updDt}, #{updUserId}
+        )
+    </insert>
+
+    <delete id="deleteCareersByUserId">
+        DELETE FROM TEACHER_CAREER
+        WHERE user_id = #{userId}
+    </delete>
+
+    <update id="updateTeacherStatus">
+        UPDATE TEACHER_PROFILE
+        SET
+            STTS_CD = #{sttsCd},
+            UPD_DT = NOW(),
+            UPD_USER_ID = #{updUserId}
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <select id="findAssignedSchedulesByUserId"
+            parameterType="map"
+            resultType="com.project.app.teachers.dto.TeacherDto$AssignedScheduleResp">
+        SELECT
+        s.schd_id     AS schdId,
+        s.prog_id     AS progId,
+        p.prog_nm     AS progNm,
+        s.brch_id     AS brchId,
+        b.brch_nm     AS brchNm,
+        s.strt_dt     AS strtDt,
+        s.strt_tm     AS strtTm,
+        s.end_tm      AS endTm,
+        s.max_nop_cnt AS maxNopCnt,
+        s.rsv_cnt     AS rsvCnt,
+        s.stts_cd     AS sttsCd
+        FROM SCHEDULE s
+        INNER JOIN PROGRAM p ON p.prog_id = s.prog_id
+        INNER JOIN BRANCH  b ON b.brch_id = s.brch_id
+        WHERE s.user_id = #{userId}
+        <if test="fromDt != null and fromDt != ''">
+            AND s.strt_dt &gt;= #{fromDt}
+        </if>
+        <if test="toDt != null and toDt != ''">
+            AND s.strt_dt &lt;= #{toDt}
+        </if>
+        ORDER BY s.strt_dt DESC, s.strt_tm DESC
+    </select>
+
+</mapper>

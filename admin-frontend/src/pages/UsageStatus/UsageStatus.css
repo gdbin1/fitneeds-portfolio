@@ -1,0 +1,355 @@
+/* UsageStatus Styles - MyPage와 동일한 스타일 공유 */
+
+.mypage-container {
+  display: flex;
+  min-height: calc(100vh - 80px);
+  background-color: #f8f9fa;
+}
+
+/* Left Sidebar */
+.mypage-sidebar {
+  width: 280px;
+  background-color: #fff;
+  padding: 2rem 0;
+  border-right: 1px solid #e9ecef;
+  flex-shrink: 0;
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+.sidebar-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #212529;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-item {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-menu-item.active .sidebar-menu-button {
+  background-color: #FFC107;
+  color: #212529;
+  font-weight: 600;
+}
+
+.sidebar-menu-link {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: #495057;
+  transition: all 0.2s ease;
+}
+
+.sidebar-menu-item:not(.active) .sidebar-menu-link:hover {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.sidebar-submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #f8f9fa;
+}
+
+.sidebar-submenu-item {
+  padding: 0.625rem 1.5rem 0.625rem 3rem;
+  font-size: 0.9375rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-submenu-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.sidebar-submenu-item:hover {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+.sidebar-submenu-item.active {
+  background-color: #FFC107;
+  color: #212529;
+  font-weight: 600;
+}
+
+/* Main Content */
+.mypage-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 2rem;
+}
+
+/* Profile Section */
+.usage-profile-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FFC107;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-character {
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.25rem;
+}
+
+.profile-email {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.profile-body-info {
+  flex-shrink: 0;
+}
+
+.body-info-link {
+  color: #212529;
+  text-decoration: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.body-info-link:hover {
+  color: #FFC107;
+}
+
+/* Usage Section */
+.usage-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.usage-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1.5rem;
+}
+
+/* Goal Progress */
+.goal-progress-container {
+  position: relative;
+}
+
+.goal-progress-bar {
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
+  border: 2px solid #8B4513;
+  border-radius: 20px;
+  position: relative;
+  overflow: visible;
+}
+
+.goal-progress-fill {
+  height: 100%;
+  background-color: #8B4513;
+  border-radius: 20px;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.goal-progress-character {
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.75rem;
+  z-index: 10;
+  line-height: 1;
+}
+
+.goal-progress-text {
+  text-align: right;
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+/* Exercise Count */
+.exercise-count-info {
+  margin-bottom: 1rem;
+}
+
+.exercise-count-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.exercise-progress-bar {
+  width: 100%;
+  height: 30px;
+  background-color: #e9ecef;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.exercise-progress-fill {
+  height: 100%;
+  background-color: #0d6efd;
+  border-radius: 15px;
+  transition: width 0.3s ease;
+}
+
+/* Weekly Exercise */
+.weekly-exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.weekly-exercise-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.weekly-exercise-label {
+  width: 80px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+  flex-shrink: 0;
+}
+
+.weekly-exercise-progress-bar {
+  flex: 1;
+  height: 30px;
+  background-color: #e9ecef;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.weekly-exercise-progress-fill {
+  height: 100%;
+  background-color: #0d6efd;
+  border-radius: 15px;
+  transition: width 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .mypage-container {
+    flex-direction: column;
+  }
+
+  .mypage-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .mypage-main {
+    padding: 1rem;
+  }
+
+  .usage-section {
+    padding: 1.5rem;
+  }
+
+  .weekly-exercise-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .weekly-exercise-label {
+    width: auto;
+  }
+
+  .weekly-exercise-progress-bar {
+    width: 100%;
+  }
+}
+

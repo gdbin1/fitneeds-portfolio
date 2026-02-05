@@ -1,0 +1,36 @@
+.post-card {
+  position: relative; /* ⭐ 이거 반드시 필요 */
+}
+
+.bookmark-btn {
+  position: absolute;
+
+  /* ⬇️ 카드 왼쪽 아래 */
+  bottom: 10px;
+  left: 10px;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 25px;
+  cursor: pointer;
+
+  /* 기본 별 스타일 */
+  color: #ffffff;
+  -webkit-text-stroke: 0.8px #FFC107;
+  /* text-stroke: 1.5px #FFC107; */
+
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+
+.bookmark-btn:hover {
+    transform: scale(1.15);
+}
+
+/* 즐겨찾기 ON */
+.bookmark-btn.active {
+    color: #0d6efd;
+    /* 파란색 */
+}

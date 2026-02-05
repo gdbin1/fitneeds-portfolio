@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.market.mapper.MarketMapper">
+
+    <select id="selectPostList"
+            parameterType="com.project.app.market.dto.PostSearchRequest"
+            resultType="com.project.app.market.dto.PostResponse">
+        SELECT
+        p.post_id AS postId,
+        p.seller_id AS sellerId,
+        st.sport_nm AS sportName,
+        pp.prod_nm AS ticketName,
+        p.title,
+        p.cntnt AS content,
+        p.sell_qty AS sellQty,
+        p.sale_amt AS saleAmt,
+        p.stts_cd AS statusCode,
+        p.del_yn AS delYn,
+        p.reg_dt AS regDt
+        FROM PASS_TRADE_POST p
+        INNER JOIN USER_PASS up ON p.user_pass_id = up.user_pass_id
+        INNER JOIN SPORT_TYPE st ON up.sport_id = st.sport_id
+        LEFT JOIN PASS_PRODUCT pp ON up.lst_prod_id = pp.prod_id
+        <where>
+            AND p.del_yn = 0
+            <if test="sellerId != null and sellerId != ''">
+                AND p.seller_id = #{sellerId}
+            </if>
+            <if test="status != null and status != ''">
+                AND p.stts_cd = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.cntnt LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+        ORDER BY p.reg_dt DESC
+        <if test="paging != null">
+            LIMIT #{paging.size} OFFSET #{paging.offset}
+        </if>
+    </select>
+
+    <select id="countPostList"
+            parameterType="com.project.app.market.dto.PostSearchRequest"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM PASS_TRADE_POST p
+        INNER JOIN USER_PASS up ON p.user_pass_id = up.user_pass_id
+        INNER JOIN SPORT_TYPE st ON up.sport_id = st.sport_id
+        <where>
+            AND p.del_yn = 0
+            <if test="sellerId != null and sellerId != ''">
+                AND p.seller_id = #{sellerId}
+            </if>
+            <if test="status != null and status != ''">
+                AND p.stts_cd = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.cntnt LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTradeList"
+            parameterType="com.project.app.market.dto.TradeSearchRequest"
+            resultType="com.project.app.market.dto.TradeResponse">
+        SELECT
+        t.trade_id AS tradeId,
+        t.post_id AS postId,
+        p.title AS postTitle,
+        s.sport_nm AS sportName,
+        p.seller_id AS sellerId,
+        u.user_id AS buyerId,
+        t.trade_amt AS tradeAmt,
+        t.buy_qty AS buyQty,
+        t.stts_cd AS sttsCd,
+        t.reg_dt AS regDt
+        FROM PASS_TRADE_TRANSACTION t
+        INNER JOIN PASS_TRADE_POST p ON t.post_id = p.post_id
+        INNER JOIN USERS u ON t.buyer_user_id = u.user_id
+        INNER JOIN USER_PASS up ON p.user_pass_id = up.user_pass_id
+        INNER JOIN SPORT_TYPE s ON up.sport_id = s.sport_id
+        <where>
+            <if test="buyerId != null and buyerId != ''">
+                AND u.user_id = #{buyerId}
+            </if>
+            <if test="sellerId != null and sellerId != ''">
+                AND p.seller_id = #{sellerId}
+            </if>
+            <if test="status != null and status != ''">
+                AND t.stts_cd = #{status}
+            </if>
+        </where>
+        ORDER BY t.reg_dt DESC
+        <if test="paging != null">
+            LIMIT #{paging.size} OFFSET #{paging.offset}
+        </if>
+    </select>
+
+    <select id="countTradeList"
+            parameterType="com.project.app.market.dto.TradeSearchRequest"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM PASS_TRADE_TRANSACTION t
+        INNER JOIN PASS_TRADE_POST p ON t.post_id = p.post_id
+        INNER JOIN USERS u ON t.buyer_user_id = u.user_id
+        <where>
+            <if test="buyerId != null and buyerId != ''">
+                AND u.user_id = #{buyerId}
+            </if>
+            <if test="sellerId != null and sellerId != ''">
+                AND p.seller_id = #{sellerId}
+            </if>
+            <if test="status != null and status != ''">
+                AND t.stts_cd = #{status}
+            </if>
+        </where>
+    </select>
+</mapper>

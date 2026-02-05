@@ -1,0 +1,322 @@
+.loader {
+  text-align: center;
+  padding: 40px;
+}
+
+.loaderSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ddd;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.headerTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 8px;
+}
+
+.headerSubtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+.contentBox {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a237e;
+}
+
+.branchSelector {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.branchSelectLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.branchSelect {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  background: #fff;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.calendarContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.weekSelector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.weekNav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.weekButton {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.weekButton:hover {
+  background: #2980b9;
+}
+
+.weekButton:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.weekDisplay {
+  font-weight: 600;
+  color: #333;
+  min-width: 200px;
+  text-align: center;
+}
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dayHeader {
+  text-align: center;
+  font-weight: 700;
+  padding: 8px;
+  background: #f2f2f2;
+  border-radius: 4px;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.dayCell {
+  aspect-ratio: 1 / 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s;
+}
+
+.dayCell:hover {
+  border-color: #3498db;
+  background: #f0f8ff;
+}
+
+.dayCellOtherMonth {
+  color: #ccc;
+  background: #f9f9f9;
+  cursor: default;
+}
+
+.dayCellSelected {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.dayCellToday {
+  border: 2px solid #e74c3c;
+}
+
+.dayNumber {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.dayScheduleCount {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.dayCellSelectedCount {
+  color: white;
+}
+
+.scheduleList {
+  display: grid;
+  gap: 12px;
+}
+
+.scheduleCard {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f9f9f9;
+  transition: all 0.2s;
+}
+
+.scheduleCard:hover {
+  border-color: #3498db;
+  background: #f0f8ff;
+}
+
+.scheduleTime {
+  font-weight: 600;
+  color: #1a237e;
+  margin-bottom: 4px;
+}
+
+.scheduleInfo {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.monthSelector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.monthNav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.monthButton {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.monthButton:hover {
+  background: #2980b9;
+}
+
+.monthButton:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.monthDisplay {
+  font-weight: 600;
+  color: #333;
+  min-width: 200px;
+  text-align: center;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+}
+
+.emptyStateIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyStateTitle {
+  font-weight: 600;
+}
+
+.emptyStateDescription {
+  margin-top: 8px;
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.formLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.formInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

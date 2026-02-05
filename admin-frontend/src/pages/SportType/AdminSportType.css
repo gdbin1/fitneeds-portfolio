@@ -1,0 +1,86 @@
+@charset 'UTF-8';
+
+.toolbar-left > .input {
+    margin-right: 5px;
+    height: 30px;
+}
+
+.toolbar {
+    height: 40px;
+    position: relative;
+    display:flex;
+    align-items: center;
+}
+
+.btn-register {
+    position: absolute;
+    top : 0px;
+    right: 0px;
+}
+
+.btn-primary {
+    margin-left: 5px;
+}
+
+
+.modal-overlay-sporttype {
+    position: fixed;
+    inset: 0;                 /* top/right/bottom/left = 0 */
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 9998;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* ✅ overlay 자체가 클릭을 먹어야 뒤로 안 통과함 */
+    pointer-events: auto;
+}
+
+.modal-area {
+    width: 500px;
+    height: 300px;
+    margin: 0;
+    border: 2px solid #999;
+    border-radius: 10px;
+    position: absolute;
+    top : 50%;
+    left: calc(50% + 125px);
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.modal-title {
+    display:block;
+    margin: 0 10px 0 0;
+    padding-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-desc {
+    padding: 10px 0;
+}
+
+.btn-link {
+    padding: 5px;
+}
+
+.form-grid {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.form-grid > input {
+    height: 30px;
+    width: 95%;
+}
+
+.form-grid > textarea {
+    width: 95%;
+}
+
+.modal-form-action > .btn-primary, .btn-sm {
+    margin: 0;
+    padding: 5px 20px;
+}

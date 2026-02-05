@@ -1,0 +1,186 @@
+/* passtrade */
+
+.pass-trade-transaction {
+  padding: 24px;
+}
+
+/* 탭 */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.tabs button.active {
+  background: #0d6efd;
+  color: #fff;
+}
+
+/* 테이블 헤더 */
+.transaction-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px 90px 140px 100px 120px;
+  padding: 12px;
+  font-weight: 600;
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 2px solid #dee2e6;
+}
+
+/* 리스트 */
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-item {
+  display: grid;
+   grid-template-columns: 80px 1fr 120px 80px 140px 100px 120px;
+  padding: 12px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-item:hover {
+  background-color: #e7f1ff;
+}
+
+/* 거래 타입 */
+.transaction-type.buy {
+  color: #198754;
+  font-weight: 600;
+}
+
+.transaction-type.sell {
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+/* 상태 뱃지 */
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.status.green {
+  background: #e7f1ff;
+  color: #0d6efd;
+}
+
+.status.yellow {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.red {
+  background: #f8d7da;
+  color: #842029;
+}
+
+.status.gray {
+  background: #e2e3e5;
+  color: #41464b;
+}
+
+/* 상태 컬럼 왼쪽 정렬 */
+.transaction-item .status {
+   justify-self: center;
+  transform: translateX(-30px);
+}
+
+
+/* ===============================
+   거래 상세 모달 (PassTrade 통일)
+================================ */
+/* 모달 카드 */
+.transaction-modal {
+  background: #fff;
+  border-radius: 14px;
+  width: 420px;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* 헤더 */
+.transaction-modal h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* 정보 그리드 */
+.transaction-info {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  row-gap: 10px;
+  column-gap: 12px;
+  margin-bottom: 20px;
+}
+
+.transaction-info .label {
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.transaction-info .value {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 금액 강조 */
+.transaction-info .price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+/* 상태 배지 */
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e7f1ff;
+  color: #0d6efd;
+  margin-left: 8px;
+}
+
+/* 버튼 */
+.transaction-modal button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  background: #0d6efd;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.transaction-modal-content {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2147483647;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+

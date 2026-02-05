@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.ticket.mapper.UserPassMapper">
+
+    <resultMap id="UserPassResponseMap" type="com.project.app.ticket.dto.UserPassResponse">
+        <constructor>
+            <idArg column="passId" javaType="long"/>
+            <arg column="userName" javaType="java.lang.String"/>
+            <arg column="sportId" javaType="long"/>
+            <arg column="sportName" javaType="java.lang.String"/>
+            <arg column="passStatusCode" javaType="java.lang.String"/>
+            <arg column="remainingCount" javaType="int"/>
+            <arg column="regDt" javaType="java.time.LocalDateTime"/>
+            <arg column="lastChgDt" javaType="java.time.LocalDateTime"/>
+        </constructor>
+    </resultMap>
+
+    <select id="selectTicketList"
+            parameterType="com.project.app.ticket.dto.UserPassSearchRequest"
+            resultMap="UserPassResponseMap">
+        SELECT
+        up.user_pass_id AS passId,
+        u.user_name AS userName,
+        st.sport_id AS sportId,
+        st.sport_nm AS sportName,
+        up.pass_status_cd AS passStatusCode,
+        up.rmn_cnt AS remainingCount,
+        up.reg_dt AS regDt,
+        up.upd_dt AS lastChgDt
+        FROM USER_PASS up
+        INNER JOIN USERS u ON up.user_id = u.user_id
+        INNER JOIN SPORT_TYPE st ON up.sport_id = st.sport_id
+        <where>
+            <if test="userId != null and userId != ''">
+                AND up.user_id = #{userId}
+            </if>
+            <if test="username != null and username != ''">
+                AND u.user_name LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="sportName != null and sportName != ''">
+                AND st.sport_nm LIKE CONCAT('%', #{sportName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND up.pass_status_cd = #{status}
+            </if>
+        </where>
+
+        <if test="paging != null and paging.sortField != null and paging.sortField != ''">
+            ORDER BY ${paging.sortField} ${paging.sortOrder}
+        </if>
+        <if test="paging == null or paging.sortField == null or paging.sortField == ''">
+            ORDER BY up.reg_dt DESC
+        </if>
+
+        <if test="paging != null">
+            LIMIT #{paging.size} OFFSET #{paging.offset}
+        </if>
+    </select>
+
+    <select id="countTicketList"
+            parameterType="com.project.app.ticket.dto.UserPassSearchRequest"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM USER_PASS up
+        INNER JOIN USERS u ON up.user_id = u.user_id
+        INNER JOIN SPORT_TYPE st ON up.sport_id = st.sport_id
+        <where>
+            <if test="userId != null and userId != ''">
+                AND u.user_id = #{userId}
+            </if>
+            <if test="username != null and username != ''">
+                AND u.user_name LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="sportName != null and sportName != ''">
+                AND st.sport_nm LIKE CONCAT('%', #{sportName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND up.pass_status_cd = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>
+

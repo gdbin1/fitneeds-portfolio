@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "onbid.api.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'onbid.api.base-url'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "my.cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'my.cors.allowed-origins'"
+  },
+  {
+    "name": "onbid.api.list-endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'onbid.api.list-endpoint'"
+  },
+  {
+    "name": "onbid.api.service-key",
+    "type": "java.lang.String",
+    "description": "A description for 'onbid.api.service-key'"
+  }
+]}

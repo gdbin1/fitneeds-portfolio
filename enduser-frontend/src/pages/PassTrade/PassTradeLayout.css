@@ -1,0 +1,9 @@
+/* passtrade */
+.pass-trade-layout {
+  display: flex;
+}
+
+.pass-trade-main {
+  flex: 1;
+  padding: 20px;
+}

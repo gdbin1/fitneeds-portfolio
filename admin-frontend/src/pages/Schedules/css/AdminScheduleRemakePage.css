@@ -1,0 +1,391 @@
+/* ===== Page ===== */
+.sch-page {
+  padding: 24px;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* ===== Card / Panels ===== */
+.sch-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ===== Header ===== */
+.sch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sch-title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.sch-branch {
+  color: #007bff;
+  font-weight: 700;
+}
+
+.sch-subtitle {
+  margin: 4px 0 0 0;
+  color: #666;
+}
+
+.sch-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===== Top Nav Buttons ===== */
+.sch-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* ===== Inputs / Selects ===== */
+.sch-select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.sch-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.sch-textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+/* ===== Buttons ===== */
+.sch-primary-btn {
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sch-secondary-btn {
+  padding: 10px 20px;
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sch-danger-btn {
+  padding: 10px 20px;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sch-ghost-btn {
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sch-add-btn {
+  width: 100%;
+  padding: 8px;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+}
+
+/* ===== Month View ===== */
+.sch-month-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sch-weekday {
+  text-align: center;
+  padding: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sch-weekday.is-sun { color: #dc3545; }
+.sch-weekday.is-sat { color: #007bff; }
+
+.sch-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.sch-day-cell {
+  min-height: 100px;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.sch-day-cell.is-today {
+  border: 2px solid #007bff;
+}
+
+.sch-day-cell.is-holiday {
+  background: #ffe6e6;
+}
+
+.sch-day-cell.is-outside {
+  background: #f8f9fa;
+}
+
+.sch-day-cell.is-disabled {
+  cursor: not-allowed;
+}
+
+.sch-day-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sch-day-num {
+  color: #333;
+}
+
+.sch-day-num.is-holiday-text {
+  color: #dc3545;
+}
+
+.sch-day-num.is-outside-text {
+  color: #999;
+}
+
+.sch-holiday-name {
+  font-size: 10px;
+  color: #dc3545;
+}
+
+.sch-day-items {
+  margin-top: 4px;
+}
+
+.sch-chip {
+  font-size: 10px;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
+.sch-more {
+  font-size: 10px;
+  color: #666;
+}
+
+/* ===== Week View ===== */
+.sch-week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+}
+
+.sch-week-col {
+  min-height: 400px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+.sch-week-col.is-today {
+  border: 2px solid #007bff;
+  background: #e3f2fd;
+}
+
+.sch-week-col.is-holiday {
+  background: #ffe6e6;
+}
+
+.sch-week-head {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.sch-week-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.sch-week-date {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.sch-week-body {}
+
+.sch-week-item {
+  padding: 8px;
+  color: #fff;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.sch-week-item-time {
+  font-weight: 800;
+}
+
+.sch-week-item-title {}
+
+/* ===== Modal ===== */
+.sch-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.sch-modal {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  width: 450px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  animation: sch-modalSlideIn 0.3s ease-out;
+}
+
+.sch-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sch-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #333;
+}
+
+.sch-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 4px;
+}
+
+/* Modal Form Layout Helpers */
+.sch-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sch-form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.sch-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.sch-required {
+  color: #f5576c;
+}
+
+.sch-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* ===== Scrollbar (modal) ===== */
+.sch-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sch-modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.sch-modal::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.sch-modal::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* ===== Animations ===== */
+@keyframes sch-modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

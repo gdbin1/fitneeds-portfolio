@@ -1,0 +1,76 @@
+/* ReservationComplete.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* 배경 어둡게 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px); /* 배경 흐림 효과 */
+}
+
+.complete-modal-content {
+    background-color: var(--white, #fff);
+    padding: 50px 40px;
+    border-radius: 24px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.check-icon {
+    width: 70px;
+    height: 70px;
+    background-color: #FFC107; /* 메인 색상 */
+    color: #222;
+    font-size: 40px;
+    line-height: 70px;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    font-weight: bold;
+}
+
+.complete-modal-content h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.complete-msg {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    font-size: 1.1rem;
+}
+
+.go-home-btn {
+    width: 100%;
+    padding: 18px 0;
+    background-color: #FFC107;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #222;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.go-home-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(255, 193, 7, 0.3);
+}

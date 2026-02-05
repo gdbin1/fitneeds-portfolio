@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.faq.mapper.AdminFAQMapper">
+
+    <!-- FAQ 개수 -->
+    <select id="selectFAQCount" resultType="int">
+        SELECT COUNT(*)
+        FROM COMMUNITY_POST
+        WHERE post_type = 'FAQ'
+        <if test="keyword != null and keyword != ''">
+            AND (title LIKE CONCAT('%', #{keyword}, '%')
+                 OR content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        <if test="visible != null">
+            AND is_visible = #{visible}
+        </if>
+    </select>
+
+    <!-- FAQ 목록 -->
+    <select id="selectFAQListPaged"
+            resultType="com.project.app.faq.dto.FAQDto">
+        SELECT
+            post_id       AS postId,
+            post_type     AS postType,
+            category      AS category,
+            title         AS title,
+            content       AS content,
+            writer_id     AS writerId,
+            writer_type   AS writerType,
+            branch_id     AS branchId,
+            display_start AS displayStart,
+            display_end   AS displayEnd,
+            is_visible    AS isVisible,
+            created_at    AS createdAt,
+            updated_at    AS updatedAt
+        FROM COMMUNITY_POST
+        WHERE post_type = 'FAQ'
+        <if test="keyword != null and keyword != ''">
+            AND (title LIKE CONCAT('%', #{keyword}, '%')
+                 OR content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        <if test="visible != null">
+            AND is_visible = #{visible}
+        </if>
+        ORDER BY post_id DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- FAQ 상세 -->
+    <select id="selectFAQDetail"
+            resultType="com.project.app.faq.dto.FAQDto">
+        SELECT
+            post_id       AS postId,
+            post_type     AS postType,
+            category      AS category,
+            title         AS title,
+            content       AS content,
+            writer_id     AS writerId,
+            writer_type   AS writerType,
+            branch_id     AS branchId,
+            display_start AS displayStart,
+            display_end   AS displayEnd,
+            is_visible    AS isVisible,
+            created_at    AS createdAt,
+            updated_at    AS updatedAt
+        FROM COMMUNITY_POST
+        WHERE post_id = #{postId}
+          AND post_type = 'FAQ'
+    </select>
+
+    <!-- FAQ 등록 -->
+    <insert id="insertFAQ"
+            parameterType="com.project.app.faq.dto.FAQDto"
+            useGeneratedKeys="true"
+            keyProperty="postId">
+        INSERT INTO COMMUNITY_POST (
+            post_type,
+            category,
+            title,
+            content,
+            writer_id,
+            writer_type,
+            branch_id,
+            display_start,
+            display_end,
+            is_visible
+        )
+        VALUES (
+            'FAQ',
+            #{category},
+            #{title},
+            #{content},
+            #{writerId},
+            #{writerType},
+            #{branchId},
+            #{displayStart},
+            #{displayEnd},
+            #{isVisible}
+        )
+    </insert>
+
+    <!-- FAQ 수정 -->
+    <update id="updateFAQ"
+            parameterType="com.project.app.faq.dto.FAQDto">
+        UPDATE COMMUNITY_POST
+        SET
+            category = #{category},
+            title = #{title},
+            content = #{content},
+            branch_id = #{branchId},
+            display_start = #{displayStart},
+            display_end = #{displayEnd},
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+          AND post_type = 'FAQ'
+    </update>
+
+    <!-- FAQ 숨김 / 보이기 -->
+    <update id="updateFAQVisible">
+        UPDATE COMMUNITY_POST
+        SET
+            is_visible = #{visible},
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+          AND post_type = 'FAQ'
+    </update>
+
+    <!-- FAQ 삭제 -->
+    <delete id="deleteFAQ">
+        DELETE FROM COMMUNITY_POST
+        WHERE post_id = #{postId}
+          AND post_type = 'FAQ'
+    </delete>
+
+</mapper>

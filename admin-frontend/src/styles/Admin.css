@@ -1,0 +1,119 @@
+/* 관리자 콘텐츠 영역 스타일 */
+/* 네비게이션은 AdminNavigation.css에서 관리 */
+
+.content-box {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.btn-register {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-del {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+.btn-sm {
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+/* 폼 스타일 */
+.form-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.required {
+    color: red;
+    margin-left: 3px;
+}
+
+/* 모달/팝업 스타일 */
+.modal-area {
+    border: 2px dashed #999;
+    background: #fafafa;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.split-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.list-area {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.detail-area {
+    flex: 1;
+    overflow-y: auto;
+    background: #f4f4f4;
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+}

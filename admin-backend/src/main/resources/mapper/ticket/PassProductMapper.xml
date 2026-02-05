@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.app.product.mapper.PassProductMapper">
+
+    <!-- Existing ticket queries (list / count) -->
+    <select id="selectProductList"
+            parameterType="com.project.app.product.dto.ProductSearchRequest"
+            resultType="com.project.app.product.dto.ProductResponse">
+        SELECT
+        p.prod_id AS prodId,
+        p.sport_id AS sportId,
+        s.sport_nm AS sportName,
+        p.prod_nm AS prodNm,
+        p.prod_amt AS prodAmt,
+        p.prv_cnt AS prvCnt,
+        p.use_yn AS useYn,
+        p.reg_dt AS regDt,
+        p.upd_dt AS updDt
+        FROM PASS_PRODUCT p
+        INNER JOIN SPORT_TYPE s ON p.sport_id = s.sport_id
+        <where>
+            <if test="sportId != null">
+                AND p.sport_id = #{sportId}
+            </if>
+            <if test="useYn != null">
+                AND p.use_yn = #{useYn}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND p.prod_nm LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+        ORDER BY p.prod_id DESC
+        <if test="paging != null">
+            LIMIT #{paging.size} OFFSET #{paging.offset}
+        </if>
+    </select>
+
+    <select id="countProductList"
+            parameterType="com.project.app.product.dto.ProductSearchRequest"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM PASS_PRODUCT p
+        INNER JOIN SPORT_TYPE s ON p.sport_id = s.sport_id
+        <where>
+            <if test="sportId != null">
+                AND p.sport_id = #{sportId}
+            </if>
+            <if test="useYn != null">
+                AND p.use_yn = #{useYn}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND p.prod_nm LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- CRUD and resultMap from root PassProductMapper -->
+    <resultMap id="PassProductResultMap" type="com.project.app.product.domain.PassProduct">
+        <id property="prodId" column="prod_id" />
+        <result property="sportId" column="sport_id" />
+        <result property="brchId" column="brch_id" />
+        <result property="prodNm" column="prod_nm" />
+        <result property="prodAmt" column="prod_amt" />
+        <result property="prvCnt" column="prv_cnt" />
+        <result property="useYn" column="use_yn" />
+        <result property="regDt" column="reg_dt" />
+        <result property="updDt" column="upd_dt" />
+        <result property="modUserId" column="mod_user_id" />
+    </resultMap>
+
+    <select id="findAll" resultMap="PassProductResultMap">
+        SELECT
+            prod_id,
+            sport_id,
+            brch_id,
+            prod_nm,
+            prod_amt,
+            prv_cnt,
+            use_yn,
+            reg_dt,
+            upd_dt,
+            mod_user_id
+        FROM pass_product
+        ORDER BY reg_dt DESC
+    </select>
+
+    <select id="findById" resultMap="PassProductResultMap">
+        SELECT
+            prod_id,
+            sport_id,
+            brch_id,
+            prod_nm,
+            prod_amt,
+            prv_cnt,
+            use_yn,
+            reg_dt,
+            upd_dt,
+            mod_user_id
+        FROM pass_product
+        WHERE prod_id = #{prodId}
+    </select>
+
+    <insert id="insert" parameterType="com.project.app.product.domain.PassProduct" useGeneratedKeys="true" keyProperty="prodId">
+        INSERT INTO pass_product (
+            sport_id,
+            brch_id,
+            prod_nm,
+            prod_amt,
+            prv_cnt,
+            use_yn,
+            reg_dt,
+            upd_dt,
+            mod_user_id
+        ) VALUES (
+            #{sportId},
+            #{brchId},
+            #{prodNm},
+            #{prodAmt},
+            #{prvCnt},
+            #{useYn},
+            NOW(),
+            NOW(),
+            #{modUserId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.project.app.product.domain.PassProduct">
+        UPDATE pass_product
+        SET
+            sport_id = #{sportId},
+            brch_id = #{brchId},
+            prod_nm = #{prodNm},
+            prod_amt = #{prodAmt},
+            prv_cnt = #{prvCnt},
+            use_yn = #{useYn},
+            upd_dt = NOW(),
+            mod_user_id = #{modUserId}
+        WHERE prod_id = #{prodId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM pass_product WHERE prod_id = #{prodId}
+    </delete>
+
+</mapper>

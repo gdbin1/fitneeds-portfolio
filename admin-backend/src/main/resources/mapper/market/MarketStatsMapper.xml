@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.market.mapper.MarketStatsMapper">
+
+    <select id="selectMarketSummary" resultType="com.project.app.market.dto.MarketStatsDto">
+        SELECT
+            s.sport_nm AS sportName,
+            COUNT(DISTINCT p.post_id) AS totalPostCount,
+            COUNT(DISTINCT t.trade_id) AS completedTradeCount,
+            IFNULL(SUM(t.trade_amt), 0) AS totalTradeAmt,
+            IFNULL(AVG(t.trade_amt), 0) AS avgTradeAmt,
+            ROUND(IFNULL(COUNT(DISTINCT t.trade_id) * 100.0 / NULLIF(COUNT(DISTINCT p.post_id), 0), 0), 2) AS successRate
+        FROM PASS_TRADE_POST p
+                 JOIN USER_PASS up ON p.user_pass_id = up.user_pass_id
+                 JOIN SPORT_TYPE s ON up.sport_id = s.sport_id
+                 LEFT JOIN PASS_TRADE_TRANSACTION t ON p.post_id = t.post_id AND t.stts_cd = 'COMPLETED'
+        WHERE DATE(p.reg_dt) BETWEEN #{startDate} AND #{endDate}
+        GROUP BY s.sport_nm
+    </select>
+
+</mapper>

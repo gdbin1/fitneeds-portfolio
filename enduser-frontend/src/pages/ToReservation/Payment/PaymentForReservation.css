@@ -1,0 +1,245 @@
+/* PaymentForReservation.css */
+
+:root {
+    --primary-color: #FFC107;
+    --primary-hover: #e0a800;
+    --text-dark: #222;
+    --text-gray: #666;
+    --white: #ffffff;
+    --bg-light: #f8f9fa;
+    --border-soft: #ececec;
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.payment-page-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: 'Pretendard', -apple-system, system-ui, sans-serif;
+    color: var(--text-dark);
+}
+
+/* 상단 요약 카드 */
+.reservation-summary {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-soft);
+}
+
+.reservation-summary p {
+    margin: 12px 0;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between; /* 정보와 값을 양 끝으로 배치 */
+    border-bottom: 1px solid #f9f9f9;
+    padding-bottom: 8px;
+}
+
+.reservation-summary strong {
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+/* 결제 방식 선택 탭 */
+.payment-type-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 25px;
+    background: #eee;
+    padding: 5px;
+    border-radius: 14px;
+}
+
+.payment-type-btn {
+    padding: 14px;
+    font-size: 1.05em;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+    color: var(--text-gray);
+}
+
+.payment-type-btn.active {
+    background-color: var(--white);
+    color: var(--text-dark);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 섹션 공통 */
+.payment-method-selection,
+.userpass-selection {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-soft);
+}
+
+.payment-method-selection h3,
+.userpass-selection h3 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+/* 결제 수단 라디오 버튼 스타일링 */
+.pay-method-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.pay-method-options label {
+    flex: 1;
+    min-width: 120px;
+    padding: 15px;
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pay-method-options input[type="radio"] {
+    display: none; /* 실제 라디오 버튼 숨김 */
+}
+
+.pay-method-options label:has(input:checked) {
+    border-color: var(--primary-color);
+    background-color: #fffdf5;
+    color: var(--text-dark);
+}
+
+/* 이용권 드롭다운 */
+.user-pass-select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.user-pass-select:focus {
+    border-color: var(--primary-color);
+}
+
+/* 최종 금액 섹션 */
+.final-payment-info {
+    background-color: var(--text-dark);
+    color: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.final-payment-info h3 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.final-payment-info .final-amount {
+    color: var(--primary-color);
+    font-size: 1.8em;
+    font-weight: 800;
+    margin-left: 10px;
+}
+
+/* 버튼 */
+.final-payment-button {
+    width: 100%;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 16px;
+    font-size: 1.3em;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 20px rgba(255, 193, 7, 0.2);
+}
+
+.final-payment-button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px);
+}
+
+.final-payment-button:disabled {
+    background-color: #ccc;
+    color: #888;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* --- 버튼 그룹 컨테이너 추가 --- */
+.payment-actions {
+    display: flex;
+    gap: 15px;      /* 버튼 사이 간격 */
+    margin-top: 30px;
+    align-items: center;
+}
+
+/* 뒤로 가기 버튼 (왼쪽) */
+.back-button {
+    flex: 1;        /* 비율 조절 (1) */
+    background-color: #e9ecef; /* 부드러운 회색 */
+    color: var(--text-gray);
+    padding: 18px 0;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.15em;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none; /* 밑줄 제거 */
+    transition: all 0.2s ease;
+    margin: 0;      /* 기존 마진 제거 */
+    text-align: center;
+}
+
+.back-button:hover {
+    background-color: #dee2e6;
+    color: var(--text-dark);
+}
+
+/* 최종 결제 확정 버튼 (오른쪽) */
+.final-payment-button {
+    flex: 2;        /* 확정 버튼을 더 넓게 설정 (2) */
+    padding: 18px 0;
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 16px;
+    font-size: 1.25em;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.2);
+    margin: 0;      /* 기존 마진 제거 */
+}
+
+.final-payment-button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 193, 7, 0.3);
+}
+
+/* 반응형 모바일: 화면이 좁아지면 다시 세로로 배치 */
+@media (max-width: 480px) {
+    .payment-actions {
+        flex-direction: column-reverse; /* 모바일은 확정 버튼이 위로 가도록 */
+    }
+    .back-button, .final-payment-button {
+        width: 100%;
+    }
+}

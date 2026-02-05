@@ -1,0 +1,316 @@
+/* MyPage Styles */
+
+.mypage-container {
+  display: flex;
+  min-height: calc(100vh - 80px);
+  background-color: #f8f9fa;
+}
+
+/* Left Sidebar */
+.mypage-sidebar {
+  width: 280px;
+  background-color: #fff;
+  padding: 2rem 0;
+  border-right: 1px solid #e9ecef;
+  flex-shrink: 0;
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+.sidebar-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #212529;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-item {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-menu-item.active .sidebar-menu-button {
+  background-color: #FFC107;
+  color: #212529;
+  font-weight: 600;
+}
+
+.sidebar-menu-item:not(.active) .sidebar-menu-button:hover {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.sidebar-submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #f8f9fa;
+}
+
+.sidebar-submenu-item {
+  padding: 0.625rem 1.5rem 0.625rem 3rem;
+  font-size: 0.9375rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-submenu-item:hover {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+.sidebar-submenu-item.active {
+  background-color: #FFC107;
+  color: #212529;
+  font-weight: 600;
+}
+
+/* Main Content */
+.mypage-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Profile Section */
+.mypage-profile-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FFC107;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-character {
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.25rem;
+}
+
+.profile-email {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.profile-body-info {
+  flex-shrink: 0;
+}
+
+.body-info-link {
+  color: #212529;
+  text-decoration: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.body-info-link:hover {
+  color: #FFC107;
+}
+
+/* Quick Links */
+.profile-quick-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.quick-link-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #212529;
+  transition: all 0.2s ease;
+}
+
+.quick-link-item:hover {
+  background-color: #FFC107;
+  color: #212529;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quick-link-icon {
+  font-size: 2rem;
+  color: #FFC107;
+}
+
+.quick-link-item:hover .quick-link-icon {
+  color: #212529;
+}
+
+.quick-link-label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+/* Reservation Section */
+.mypage-reservation-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.reservation-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1rem;
+}
+
+.reservation-summary {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.reservation-table-container {
+  overflow-x: auto;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reservation-table thead {
+  background-color: #f8f9fa;
+}
+
+.reservation-table th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #212529;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.reservation-table td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.9375rem;
+  color: #495057;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.reservation-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .mypage-container {
+    flex-direction: column;
+  }
+
+  .mypage-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .profile-quick-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mypage-main {
+    padding: 1rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-quick-links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .reservation-table {
+    font-size: 0.875rem;
+  }
+
+  .reservation-table th,
+  .reservation-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+

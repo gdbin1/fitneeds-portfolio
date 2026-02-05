@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.notice.mapper.NoticeMapper">
+
+    <!-- =========================
+         USER 공지 목록 조회
+         - 숨김 제외
+         - 종료된 공지 제외
+         - 상시 공지는 유지
+         - 지점명(branchName) JOIN
+         - 🔥 상단 고정(is_pinned) 우선 정렬
+    ========================= -->
+    <select id="selectNoticeList"
+            resultType="com.project.app.notice.dto.NoticeDto">
+
+        SELECT
+            cp.post_id      AS postId,
+            cp.title        AS title,
+            cp.content      AS content,
+            cp.views        AS views,
+            cp.display_end  AS displayEnd,
+            cp.created_at   AS createdAt,
+            cp.branch_id    AS branchId,
+            cp.is_pinned    AS isPinned,
+            b.brch_nm       AS branchName
+        FROM COMMUNITY_POST cp
+        LEFT JOIN BRANCH b
+            ON cp.branch_id = b.brch_id
+        WHERE cp.post_type = 'NOTICE'
+          AND cp.is_visible = 1
+          AND (
+                cp.display_end IS NULL
+                OR cp.display_end >= NOW()
+          )
+        ORDER BY
+            cp.is_pinned DESC,     <!-- 🔥 상단 고정 먼저 -->
+            cp.created_at DESC    <!-- 그 다음 최신순 -->
+
+    </select>
+
+    <!-- =========================
+         USER 공지 상세 조회
+         - 숨김 제외
+         - 종료된 공지 접근 불가
+         - 지점명(branchName) JOIN
+    ========================= -->
+    <select id="selectNoticeDetail"
+            parameterType="long"
+            resultType="com.project.app.notice.dto.NoticeDto">
+
+        SELECT
+            cp.post_id      AS postId,
+            cp.title        AS title,
+            cp.content      AS content,
+            cp.views        AS views,
+            cp.display_end  AS displayEnd,
+            cp.created_at   AS createdAt,
+            cp.branch_id    AS branchId, 
+            b.brch_nm       AS branchName
+        FROM COMMUNITY_POST cp
+        LEFT JOIN BRANCH b
+            ON cp.branch_id = b.brch_id
+        WHERE cp.post_id = #{postId}
+          AND cp.post_type = 'NOTICE'
+          AND cp.is_visible = 1
+          AND (
+                cp.display_end IS NULL
+                OR cp.display_end >= NOW()
+          )
+
+    </select>
+
+    <!-- =========================
+         조회수 증가
+         - 숨김/종료 공지는 증가 안 됨
+    ========================= -->
+    <update id="increaseViews" parameterType="long">
+
+        UPDATE COMMUNITY_POST
+        SET views = IFNULL(views, 0) + 1,
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+          AND post_type = 'NOTICE'
+          AND is_visible = 1
+          AND (
+                display_end IS NULL
+                OR display_end >= NOW()
+          )
+
+    </update>
+
+</mapper>

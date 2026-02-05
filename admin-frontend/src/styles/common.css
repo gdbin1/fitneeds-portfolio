@@ -1,0 +1,329 @@
+/* Common styles - Bootstrap variables and base styles */
+@charset "UTF-8";
+/*!
+* Start Bootstrap - Modern Business v5.0.7 (https://startbootstrap.com/template-overviews/modern-business)
+* Copyright 2013-2023 Start Bootstrap
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-modern-business/blob/master/LICENSE)
+*/
+
+/* Override Bootstrap CSS variables with yellow point color */
+:root {
+  --bs-primary: #FFC107 !important;
+  --bs-primary-rgb: 255, 193, 7 !important;
+  --bs-primary-bg-subtle: #fff3cd !important;
+  --bs-primary-border-subtle: #ffecb5 !important;
+  --bs-primary-text-emphasis: #664d03 !important;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Override Bootstrap primary color globally with point yellow */
+.btn-primary,
+.bg-primary,
+.badge.bg-primary,
+[class*="btn-primary"],
+[class*="bg-primary"] {
+  background-color: #FFC107 !important;
+  border-color: #FFC107 !important;
+  color: #212529 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active {
+  background-color: #FFA000 !important;
+  border-color: #FFA000 !important;
+  color: #212529 !important;
+}
+
+.btn-primary:active {
+  background-color: #FFB300 !important;
+  border-color: #FFB300 !important;
+  color: #212529 !important;
+}
+
+.btn-outline-primary {
+  color: #FFC107 !important;
+  border-color: #FFC107 !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  color: #212529 !important;
+  background-color: #FFC107 !important;
+  border-color: #FFC107 !important;
+}
+
+.btn-outline-primary:active {
+  color: #212529 !important;
+  background-color: #FFA000 !important;
+  border-color: #FFA000 !important;
+}
+
+.text-primary,
+[class*="text-primary"] {
+  color: #FFC107 !important;
+}
+
+.bg-primary.bg-gradient {
+  background: linear-gradient(180deg, #FFC107 10%, #FFB300 100%) !important;
+}
+
+.border-primary {
+  border-color: #FFC107 !important;
+}
+
+.link-primary {
+  color: #FFC107 !important;
+}
+
+.link-primary:hover {
+  color: #FFA000 !important;
+}
+
+/* Common feature icon style */
+.feature {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
+}
+
+/* Blog featured background */
+.bg-featured-blog {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 15rem;
+}
+
+/* Common page structure classes */
+.page-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.page-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.75rem;
+}
+
+.page-col {
+  flex: 1 0 0%;
+  padding: 0 0.75rem;
+}
+
+.page-col-small {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+  padding: 0 0.75rem;
+}
+
+.page-col-medium {
+  flex: 0 0 auto;
+  width: 50%;
+  padding: 0 0.75rem;
+}
+
+.page-col-large {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+  padding: 0 0.75rem;
+}
+
+.page-col-full {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 0 0.75rem;
+}
+
+/* Point color - Yellow */
+:root {
+  --point-yellow: #FFC107;
+  --point-yellow-dark: #FFB300;
+  --point-yellow-light: #FFD54F;
+  --point-yellow-hover: #FFA000;
+}
+
+/* Common utility classes */
+.section-padding {
+  padding: 3rem 0;
+}
+
+.section-dark {
+  background-color: #212529;
+  color: #fff;
+}
+
+.section-light {
+  background-color: #f8f9fa;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.text-point {
+  color: var(--point-yellow);
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.button-primary {
+  color: #212529;
+  background-color: var(--point-yellow);
+  border-color: var(--point-yellow);
+  font-weight: 600;
+}
+
+.button-primary:hover {
+  color: #212529;
+  background-color: var(--point-yellow-hover);
+  border-color: var(--point-yellow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.button-outline {
+  color: #fff;
+  border-color: var(--point-yellow);
+  background-color: transparent;
+}
+
+.button-outline:hover {
+  color: #212529;
+  background-color: var(--point-yellow);
+  border-color: var(--point-yellow);
+}
+
+.button-large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  border-radius: 0.3rem;
+}
+
+/* Feature icon with point color */
+.feature {
+  background-color: var(--point-yellow);
+  color: #212529;
+}
+
+/* Badge with point color */
+.badge-point {
+  background-color: var(--point-yellow);
+  color: #212529;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 700;
+  border-radius: 0.25rem;
+}
+
+/* Link with point color hover */
+.link-point {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+.link-point:hover {
+  color: var(--point-yellow);
+}
+
+@media (min-width: 576px) {
+  .page-col-small-sm {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+  
+  .page-col-medium-sm {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-col-small-md {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+  
+  .page-col-medium-md {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .page-col-small-lg {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+  
+  .page-col-medium-lg {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  
+  .page-col-large-lg {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-col-small-xl {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+  
+  .page-col-medium-xl {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  
+  .page-col-large-xl {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+  }
+}
+

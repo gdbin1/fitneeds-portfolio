@@ -1,0 +1,184 @@
+/* Pricing page specific styles */
+
+.section-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.section-padding {
+  padding: 3rem 0;
+}
+
+.section-light {
+  background-color: #f8f9fa;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pricing-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pricing-card {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1200px) {
+  .pricing-card {
+    margin-bottom: 0;
+  }
+}
+
+.pricing-card-featured {
+  border: 2px solid #FFC107;
+}
+
+.pricing-body {
+  padding: 3rem;
+}
+
+.pricing-plan {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.pricing-card-featured .pricing-plan {
+  color: #212529;
+}
+
+.pricing-plan i {
+  color: #ffc107;
+  margin-right: 0.25rem;
+}
+
+.pricing-price {
+  margin-bottom: 1rem;
+}
+
+.pricing-amount {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.pricing-period {
+  color: #6c757d;
+  font-size: 1.25rem;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-feature i {
+  font-size: 1.25rem;
+}
+
+.pricing-feature-included {
+  color: #212529;
+}
+
+.pricing-feature-included i {
+  color: #FFC107;
+}
+
+.pricing-feature-excluded {
+  color: #6c757d;
+}
+
+.pricing-button {
+  display: grid;
+}
+
+/* Button styles */
+.button-primary {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #FFC107;
+  border-radius: 0.25rem;
+  background-color: #FFC107;
+  color: #212529;
+  transition: all 0.15s ease-in-out;
+}
+
+.button-primary:hover {
+  background-color: #FFA000;
+  border-color: #FFA000;
+  color: #212529;
+}
+
+.button-outline-primary {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #FFC107;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  color: #FFC107;
+  transition: all 0.15s ease-in-out;
+}
+
+.button-outline-primary:hover {
+  background-color: #FFC107;
+  border-color: #FFC107;
+  color: #212529;
+}

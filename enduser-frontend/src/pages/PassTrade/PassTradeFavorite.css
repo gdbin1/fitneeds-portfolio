@@ -1,0 +1,89 @@
+/* ===============================
+   즐겨찾기 페이지 (POST와 동일 스타일)
+   =============================== */
+
+.pass-trade-favorite {
+  padding-left: 32px;
+  padding-right: 24px;
+}
+
+/* ===============================
+   카드 리스트 (post와 동일)
+   =============================== */
+
+.pass-trade-favorite .post-list {
+  display: grid;
+  grid-template-columns: repeat(4, 260px);
+  gap: 90px;
+  align-items: start;
+}
+
+/* ===============================
+   카드 (POST 카드와 100% 동일)
+   =============================== */
+
+.pass-trade-favorite .post-card {
+  position: relative;              /* card-actions 기준 */
+
+  border: 4px solid #dee2e6;
+  border-radius: 8px;
+  width: 280px;
+  padding: 14px;
+
+  background-color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* POST와 동일 hover 효과 */
+.pass-trade-favorite .post-card:hover {
+  background-color: #d87bfd;
+  color: #212529;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* 제목 */
+.pass-trade-favorite .post-card h3 {
+  margin-top: 0;
+}
+
+/* ===============================
+   이미지 (POST와 동일)
+   =============================== */
+
+.pass-trade-favorite .pass-image {
+  width: 250px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+/* ===============================
+   ⭐ 즐겨찾기 토글 버튼
+   - 항상 보이게 (POST와 차이점 딱 1개)
+   =============================== */
+
+.pass-trade-favorite .card-actions {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+
+  opacity: 1;            /* ✅ 항상 표시 */
+  pointer-events: auto;  /* ✅ 항상 클릭 가능 */
+}
+
+/* 버튼 hover만 살짝 */
+.pass-trade-favorite .card-actions button:hover {
+  transform: scale(1.15);
+}

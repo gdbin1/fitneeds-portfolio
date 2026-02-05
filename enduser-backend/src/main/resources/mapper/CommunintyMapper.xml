@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.app.community.mapper.CommunityPostMapper">
+
+    <!-- USER 커뮤니티 글 등록 -->
+    <insert id="insertCommunityPost"
+            parameterType="com.project.app.community.dto.CommunityPostDto"
+            useGeneratedKeys="true"
+            keyProperty="postId">
+
+        INSERT INTO COMMUNITY_POST
+        (
+            post_type,
+            category,
+            title,
+            content,
+            writer_id,
+            writer_type,
+            branch_id,
+            views,
+            is_visible,
+            post_visible,
+            sport_type,
+            recruit_max,
+            recruit_end_date,
+            display_start,
+            display_end,
+            created_at,
+            updated_at
+        )
+        VALUES
+        (
+            #{postType},
+            #{category},
+            #{title},
+            #{content},
+            #{writerId},
+            #{writerType},
+            #{branchId},
+            0,
+            1,
+            1,
+            #{sportType},
+            #{recruitMax},
+            #{recruitEndDate},
+            #{displayStart},
+            #{displayEnd},
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <!-- USER 커뮤니티 목록 -->
+    <select id="selectVisibleCommunityPostList"
+            resultType="com.project.app.community.dto.CommunityPostDto">
+
+        SELECT
+            cp.post_id          AS postId,
+            cp.post_type        AS postType,
+            cp.category,
+            cp.title,
+            cp.content,
+            cp.writer_id        AS writerId,
+            COALESCE(u.user_name, '탈퇴한 회원') AS writerName,
+            cp.writer_type      AS writerType,
+            cp.branch_id        AS branchId,
+            cp.views,
+            cp.is_visible       AS isVisible,
+            cp.post_visible     AS postVisible,
+            cp.sport_type       AS sportType,
+            cp.recruit_max      AS recruitMax,
+            cp.recruit_end_date AS recruitEndDate,
+            cp.display_start    AS displayStart,
+            cp.display_end      AS displayEnd,
+            cp.created_at       AS createdAt,
+            cp.updated_at       AS updatedAt,
+            COUNT(crj.join_id)  AS recruitCount
+        FROM COMMUNITY_POST cp
+        LEFT JOIN USERS u
+               ON u.user_id = cp.writer_id
+        LEFT JOIN COMMUNITY_RECRUIT_JOIN crj
+               ON crj.post_id = cp.post_id
+        WHERE cp.post_type = 'COMMUNITY'
+          AND cp.is_visible = 1
+          AND cp.post_visible = 1
+          AND (cp.category IS NULL OR cp.category NOT IN ('개인정보동의'))
+        GROUP BY cp.post_id
+        ORDER BY cp.created_at DESC
+    </select>
+
+    <!-- USER 커뮤니티 목록 (페이징) -->
+    <select id="selectVisibleCommunityPostListPaged"
+            parameterType="map"
+            resultType="com.project.app.community.dto.CommunityPostDto">
+
+        SELECT
+            cp.post_id          AS postId,
+            cp.post_type        AS postType,
+            cp.category,
+            cp.title,
+            cp.content,
+            cp.writer_id        AS writerId,
+            COALESCE(u.user_name, '탈퇴한 회원') AS writerName,
+            cp.writer_type      AS writerType,
+            cp.branch_id        AS branchId,
+            cp.views,
+            cp.is_visible       AS isVisible,
+            cp.post_visible     AS postVisible,
+            cp.sport_type       AS sportType,
+            cp.recruit_max      AS recruitMax,
+            cp.recruit_end_date AS recruitEndDate,
+            cp.display_start    AS displayStart,
+            cp.display_end      AS displayEnd,
+            cp.created_at       AS createdAt,
+            cp.updated_at       AS updatedAt,
+            COUNT(crj.join_id)  AS recruitCount
+        FROM (
+            SELECT post_id
+            FROM COMMUNITY_POST
+            WHERE post_type = 'COMMUNITY'
+              AND is_visible = 1
+              AND post_visible = 1
+              AND (category IS NULL OR category NOT IN ('개인정보동의'))
+            ORDER BY created_at DESC
+            LIMIT #{size} OFFSET #{offset}
+        ) ids
+        JOIN COMMUNITY_POST cp ON cp.post_id = ids.post_id
+        LEFT JOIN USERS u ON u.user_id = cp.writer_id
+        LEFT JOIN COMMUNITY_RECRUIT_JOIN crj ON crj.post_id = cp.post_id
+        GROUP BY cp.post_id
+        ORDER BY cp.created_at DESC
+    </select>
+
+    <!-- 전체 개수 -->
+    <select id="selectVisibleCommunityPostCount" resultType="int">
+        SELECT COUNT(*)
+        FROM COMMUNITY_POST
+        WHERE post_type = 'COMMUNITY'
+          AND is_visible = 1
+          AND post_visible = 1
+          AND (category IS NULL OR category NOT IN ('개인정보동의'))
+    </select>
+
+    <!-- 내가 쓴 글 -->
+    <select id="selectMyCommunityPostList"
+            parameterType="string"
+            resultType="com.project.app.community.dto.CommunityPostDto">
+
+        SELECT
+            cp.post_id          AS postId,
+            cp.post_type        AS postType,
+            cp.category,
+            cp.title,
+            cp.content,
+            cp.writer_id        AS writerId,
+            COALESCE(u.user_name, '탈퇴한 회원') AS writerName,
+            cp.writer_type      AS writerType,
+            cp.views,
+            cp.is_visible       AS isVisible,
+            cp.post_visible     AS postVisible,
+            cp.sport_type       AS sportType,
+            cp.recruit_max      AS recruitMax,
+            cp.recruit_end_date AS recruitEndDate,
+            cp.created_at       AS createdAt,
+            cp.updated_at       AS updatedAt,
+            COUNT(crj.join_id)  AS recruitCount
+        FROM COMMUNITY_POST cp
+        LEFT JOIN USERS u ON u.user_id = cp.writer_id
+        LEFT JOIN COMMUNITY_RECRUIT_JOIN crj ON crj.post_id = cp.post_id
+        WHERE cp.writer_id = #{userId}
+          AND cp.post_type = 'COMMUNITY'
+          AND cp.post_visible = 1
+          AND (cp.category IS NULL OR cp.category NOT IN ('개인정보동의'))
+        GROUP BY cp.post_id
+        ORDER BY cp.created_at DESC
+    </select>
+
+    <!-- 상세 조회 -->
+    <select id="selectCommunityPostDetail"
+            parameterType="long"
+            resultType="com.project.app.community.dto.CommunityPostDto">
+
+        SELECT
+            cp.post_id            AS postId,
+            cp.post_type          AS postType,
+            cp.category,
+            cp.title,
+            cp.content,
+            cp.writer_id          AS writerId,
+            COALESCE(u.user_name, '탈퇴한 회원') AS writerName,
+            cp.writer_type        AS writerType,
+            cp.branch_id          AS branchId,
+            cp.views,
+            cp.is_visible         AS isVisible,
+            cp.post_visible       AS postVisible,
+            cp.sport_type         AS sportType,
+            cp.recruit_max        AS recruitMax,
+            cp.recruit_end_date   AS recruitEndDate,
+            cp.display_start      AS displayStart,
+            cp.display_end        AS displayEnd,
+            cp.created_at         AS createdAt,
+            cp.updated_at         AS updatedAt,
+            COUNT(crj.join_id)    AS recruitCount
+        FROM COMMUNITY_POST cp
+        LEFT JOIN USERS u ON u.user_id = cp.writer_id
+        LEFT JOIN COMMUNITY_RECRUIT_JOIN crj ON crj.post_id = cp.post_id
+        WHERE cp.post_id = #{postId}
+          AND cp.post_visible = 1
+          AND (cp.category IS NULL OR cp.category NOT IN ('개인정보동의'))
+        GROUP BY cp.post_id
+    </select>
+
+    <!-- 작성자 본인 체크 -->
+    <select id="countByPostIdAndWriterId" resultType="int">
+        SELECT COUNT(*)
+        FROM COMMUNITY_POST
+        WHERE post_id = #{postId}
+          AND writer_id = #{writerId}
+          AND post_visible = 1
+          AND (category IS NULL OR category NOT IN ('개인정보동의'))
+    </select>
+
+    <!-- 글 수정 -->
+    <update id="updateCommunityPost">
+        UPDATE COMMUNITY_POST
+        SET
+            title = #{title},
+            content = #{content},
+            sport_type = #{sportType},
+            recruit_max = #{recruitMax},
+            recruit_end_date = #{recruitEndDate},
+            display_start = #{displayStart},
+            display_end = #{displayEnd},
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+          AND post_visible = 1
+          AND (category IS NULL OR category NOT IN ('개인정보동의'))
+    </update>
+
+    <!-- 글 삭제 (소프트 삭제) -->
+    <update id="deleteCommunityPost">
+        UPDATE COMMUNITY_POST
+        SET
+            post_visible = 0,
+            updated_at = NOW()
+        WHERE post_id = #{postId}
+    </update>
+
+    <!-- 조회수 증가 -->
+    <update id="increaseViews" parameterType="long">
+        UPDATE COMMUNITY_POST
+        SET views = views + 1
+        WHERE post_id = #{postId}
+          AND post_visible = 1
+          AND (category IS NULL OR category NOT IN ('개인정보동의'))
+    </update>
+
+</mapper>

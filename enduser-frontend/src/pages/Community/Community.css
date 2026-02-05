@@ -1,0 +1,564 @@
+/* =========================
+   공통 레이아웃
+========================= */
+.community-layout {
+  display: flex;
+  min-height: calc(100vh - 80px);
+}
+
+.community-container {
+  flex: 1;
+  padding: 30px;
+
+  /* ✅ 리스트 width는 기존 유지 + 크기만 조절 */
+  max-width: 1100px;
+  margin-left: 110px;
+}
+
+.community-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.community-subtitle {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   상단 버튼 영역
+========================= */
+.community-top-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.community-top-buttons button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: #ffd84d;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.community-top-buttons button:hover {
+  background-color: #ffcc00;
+}
+
+/* =========================
+   필터 & 검색 영역
+========================= */
+.community-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.community-filter select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: #ffd84d;
+  font-weight: 600;
+}
+
+.community-filter input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: #fffdf2;
+}
+
+.community-filter button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #ffd84d;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.community-filter button:hover {
+  background-color: #ffcc00;
+}
+
+/* =========================
+   테이블
+========================= */
+.community-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.community-table th {
+  background-color: #f3f3f3;
+  padding: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.community-table td {
+  padding: 12px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* 제목 링크 */
+.community-title-link {
+  cursor: pointer;
+  color: #333;
+  font-weight: 600;
+}
+
+.community-title-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   카테고리 뱃지 (핵심)
+========================= */
+.category-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 모집 */
+.category-recruit {
+  background-color: #fff3c4;
+  color: #ff9800;
+}
+
+/* 정보공유 */
+.category-info {
+  background-color: #e7f1ff;
+  color: #1976d2;
+}
+
+/* 후기 */
+.category-review {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+}
+
+/* 자유 */
+.category-free {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* =========================
+   하단 영역
+========================= */
+.community-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.community-count {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 페이지네이션 */
+.community-pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.community-pagination button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+}
+
+.community-pagination button.active {
+  background-color: #ffd84d;
+  border: none;
+  font-weight: 700;
+}
+
+/* 글쓰기 버튼 */
+.community-write-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ffd84d;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.community-write-btn:hover {
+  background-color: #ffcc00;
+}
+
+.recruit-status-badge {
+  margin-left: 6px;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.recruit-open {
+  background: #e6f7ec;
+  color: #1e8e3e;
+}
+
+.recruit-closed {
+  background: #f1f1f1;
+  color: #888;
+}
+
+/* =========================
+   ✅ 댓글 내용 폰트: 작성자와 같은 톤으로
+========================= */
+.community-post-content {
+  white-space: pre-line;
+  /* 🔥 엔터 줄바꿈 반영 */
+  line-height: 1.6;
+
+  /* 작성자(아이디) 톤에 맞춰 가독성 강화 */
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* =========================
+   글/댓글 액션 버튼 (수정/삭제)
+========================= */
+.community-action-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #ffd84d;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.community-action-btn:hover {
+  background-color: #ffcc00;
+}
+
+/* 삭제 버튼은 톤만 살짝 다운 */
+.community-action-btn.delete {
+  background-color: #f1f1f1;
+  color: #666;
+}
+
+.community-action-btn.delete:hover {
+  background-color: #e0e0e0;
+}
+
+/* =========================
+   댓글 작성 영역
+========================= */
+.comment-write-box {
+  margin-top: 20px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fffdf2;
+}
+
+.comment-write-box.merged {
+  margin-top: 12px;
+  background-color: #fffdf2;
+}
+
+.comment-textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.comment-textarea:focus {
+  outline: none;
+  border-color: #ffd84d;
+  background-color: #ffffff;
+}
+
+/* 댓글 작성 버튼 */
+.comment-submit-btn {
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ffd84d;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.comment-submit-btn:hover {
+  background-color: #ffcc00;
+}
+
+/* =========================
+   모집 참여자 목록 (작성자용)
+========================= */
+.recruit-join-box {
+  margin-top: 30px;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #fffdf2;
+  border: 1px solid #ffe082;
+}
+
+.recruit-join-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.recruit-join-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.recruit-join-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff9800;
+  background: #fff3c4;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.recruit-empty-text {
+  font-size: 13px;
+  color: #999;
+  margin: 10px 0 0;
+}
+
+.recruit-join-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recruit-join-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  background: white;
+  border: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.recruit-join-item:last-child {
+  margin-bottom: 0;
+}
+
+.recruit-user-icon {
+  font-size: 16px;
+}
+
+.recruit-user-id {
+  font-weight: 600;
+  color: #333;
+}
+
+/* =========================
+   모집 참여 버튼
+========================= */
+.recruit-apply-btn {
+  margin-top: 12px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ffd84d;
+  /* community-action-btn 톤 */
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.recruit-apply-btn:hover {
+  background-color: #ffcc00;
+}
+
+/* 참여 취소 (삭제/취소 톤 재사용) */
+.recruit-cancel-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+}
+
+.recruit-cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* =========================
+   상세 페이지 카드 레이아웃
+========================= */
+.community-detail-page {
+  max-width: 900px;
+  margin-left: 110px;
+  padding: 30px 20px;
+  background: #f5f6f8;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.community-page-content {
+  flex: 1;
+}
+
+
+.community-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 게시글 */
+.post-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.post-content {
+  white-space: pre-line;
+  line-height: 1.7;
+}
+
+/* 댓글 */
+.comment-item {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-meta {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+/* 제목 영역을 카드 헤더처럼 */
+.post-header {
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 제목 강조 */
+.post-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+/* 본문 영역을 박스로 */
+.post-body {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+
+/* 본문 가독성 강화 */
+.post-content {
+  white-space: pre-line;
+  line-height: 1.8;
+  font-size: 15px;
+  color: #333;
+}
+
+/* =========================
+   ✅ (모집이 아닌 글만) 댓글을 카드 내부로 합친 레이아웃
+========================= */
+.detail-comment-merged {
+  margin-top: 18px;
+}
+
+.detail-divider {
+  height: 1px;
+  background: #eee;
+  margin: 18px 0 14px;
+}
+
+.detail-comment-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.detail-comment-empty {
+  font-size: 13px;
+  color: #999;
+  margin: 8px 0 0;
+}
+
+/* .detail-comment-list { */
+/* 리스트 느낌 유지 */
+/* } */
+
+/* =========================
+   ✅ 공지사항 상세 팝업 "내용" 배경 흰색 (안전 후보 셀렉터)
+   - 해당 클래스가 존재할 때만 적용됨
+========================= */
+.notice-detail-content,
+.notice-popup-content,
+.notice-content,
+.notice-modal-content,
+.notice-detail-body {
+  background: #ffffff;
+}
+
+/* 제목은 왼쪽으로 정렬, 가운데로 할거면 아래 css 주석처리 하면 됨 */
+.community-table th:nth-child(3),
+.community-table td:nth-child(3) {
+  text-align: left;
+}
